@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 14.
+Mobile-first workout tracker for personal gym and surf preparation. Version 15.
 
 ## Deploy on Vercel
 
@@ -29,7 +29,9 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 14.
 - Show a workout summary with completed exercises, sets, volume, duration, and new records after saving and in the calendar.
 - Track bodyweight and mobility exercises without an unnecessary weight field.
 - Add structured food entries with meal, item, quantity, unit, calories, and protein.
-- Show brief confirmations in the top-right corner.
+- Show Liquid Glass-style confirmations with a spring entrance, clear exit, and a visible lifetime indicator.
+- Compare the existing interface with a temporary Apple-inspired Glass variant from the header dropdown.
+- Keep the bottom navigation flush with the screen edge and blur the protected area beneath it, so scrolling content cannot reappear below the bar.
 - Use iOS-friendly dropdowns, inputs, sheets, and navigation controls.
 - Install the app from Safari with a dedicated SWELL home-screen icon and standalone display.
 - Keep the app shell available offline and save workout changes locally until a connection returns.
@@ -56,3 +58,5 @@ The repository is public; **do not commit personal workout exports**, Firebase a
 ## Technical
 
 Static HTML/CSS/JavaScript. No npm install or build required. Exercise-video retrieval uses the public wger API; not all exercises will have playable videos.
+
+The optional Apple-inspired comparison uses original SWELL CSS and icons, informed by Apple's public design guidance and the open Apple Design System Catalog. No protected Apple artwork or proprietary assets are bundled.
