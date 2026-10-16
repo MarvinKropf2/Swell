@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 10.
+Mobile-first workout tracker for personal gym and surf preparation. Version 11.
 
 ## Deploy on Vercel
 
@@ -17,6 +17,7 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 10.
 - Save weight, reps, notes, and completed sets in the calendar for every workout.
 - Open the app on today and resume an active workout after reopening it.
 - Start today's workout directly from the top of the Training tab.
+- Keep the full training week collapsed until the weekly-plan card is opened.
 - Review completed exercises, sets, reps, weights, failure sets, and notes in the calendar.
 - Delete a saved workout directly from its calendar entry.
 - Keep today's workout at the top of Training and show only genuinely unfinished sessions underneath.
@@ -25,6 +26,8 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 10.
 - Add structured food entries with meal, item, quantity, unit, calories, and protein.
 - Show brief confirmations in the top-right corner.
 - Use iOS-friendly dropdowns, inputs, sheets, and navigation controls.
+- Install the app from Safari with a dedicated SWELL home-screen icon and standalone display.
+- Compare Normal, Medium, and Clutterless layouts with a temporary selector; all variants use the same data and the selector is intended to be removed after one design is chosen.
 - Save completed workouts, history, calendar, and training progress.
 - External exercise demonstration videos where available.
 
@@ -32,7 +35,15 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 10.
 
 By default your information is saved in **localStorage on your browser and domain** only, **not** in GitHub or Vercel. Export a JSON backup through the app. Browser-data deletion or changing to a different Vercel domain can erase access to saved local workouts.
 
-Optional Google/Firebase synchronization is **not configured**. Add public Firebase web-app settings to `firebase-config.js`, enable Firestore/Authentication and publish `firestore.rules` to activate it. Never commit service-account credentials.
+Optional Google/Firebase synchronization is **prepared but not configured**. To activate the Google login and cross-device sync once:
+
+1. Create a Firebase project and register a web app.
+2. Enable **Google** under Firebase Authentication → Sign-in method.
+3. Create a Firestore database and publish the included `firestore.rules`.
+4. Add the public Firebase web-app configuration to `firebase-config.js`.
+5. Add the production Vercel domain to Firebase Authentication → Authorized domains.
+
+Firebase's web-app configuration identifies the project but is not an admin credential. Never commit service-account credentials, private keys, workout exports, or other secrets.
 
 The repository is public; **do not commit personal workout exports**, Firebase admin secrets, or other private data.
 
