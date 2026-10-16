@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 7.
+Mobile-first workout tracker for personal gym and surf preparation. Version 8.
 
 ## Deploy on Vercel
 
@@ -14,6 +14,10 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 7.
 - Create and switch between multiple editable weekly workout plans.
 - Change training days, exercises, weights, reps, and sets.
 - Check off sets automatically by entering weight/reps, or manually for bodyweight movements.
+- Save weight, reps, notes, and completed sets in the calendar for every workout.
+- Show the last completed values as placeholders when repeating an exercise.
+- Track bodyweight and mobility exercises without an unnecessary weight field.
+- Compare five temporary Food concepts from the selector in the Food tab.
 - Save completed workouts, history, calendar, and training progress.
 - External exercise demonstration videos where available.
 
