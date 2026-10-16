@@ -1,4 +1,4 @@
-const CACHE='swell-v19';
+const CACHE='swell-v20';
 const SHELL=['/','/index.html','/firebase-config.js','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
@@ -14,7 +14,7 @@ self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
   if(url.origin!==self.location.origin)return;
   if(event.request.mode==='navigate'||url.pathname==='/firebase-config.js'){
-    event.respondWith(fetch(event.request).then(response=>{
+    event.respondWith(fetch(new Request(event.request,{cache:'no-store'})).then(response=>{
       const copy=response.clone();
       caches.open(CACHE).then(cache=>cache.put(event.request,copy));
       return response;
