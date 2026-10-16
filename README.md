@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 11.
+Mobile-first workout tracker for personal gym and surf preparation. Version 12.
 
 ## Deploy on Vercel
 
@@ -27,7 +27,7 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 11.
 - Show brief confirmations in the top-right corner.
 - Use iOS-friendly dropdowns, inputs, sheets, and navigation controls.
 - Install the app from Safari with a dedicated SWELL home-screen icon and standalone display.
-- Compare Normal, Medium, and Clutterless layouts with a temporary selector; all variants use the same data and the selector is intended to be removed after one design is chosen.
+- Use the selected Medium layout throughout the app.
 - Save completed workouts, history, calendar, and training progress.
 - External exercise demonstration videos where available.
 
