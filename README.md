@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 26.
+Mobile-first workout tracker for personal gym and surf preparation. Version 27.
 
 ## Deploy on Vercel
 
