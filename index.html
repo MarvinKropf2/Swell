@@ -364,11 +364,12 @@ async function setupCloud(){
     const initial=await firestore.getDoc(ref);
     if(cloud.uid!==user.uid)return;
     if(initial.exists()&&initial.data().state)state=normalizeState(mergeRemote(initial.data().state,state));
-    if(!state.missedTrackingSince){state.missedTrackingSince=today();state.modifiedAt=Date.now()}
+    if(!state.missedTrackingSince)state.missedTrackingSince=today();
+    if(!initial.exists()||JSON.stringify(cloudPayload(initial.data().state||{}))!==JSON.stringify(cloudPayload(state)))state.modifiedAt=Date.now();
     localSave();
     cloud.synced=true;cloud.status='Mit Google verbunden';
     view.selectedPlanId=state.activePlanId;refreshCloudView();
-    if(!initial.exists()||initial.data().state?.modifiedAt!==state.modifiedAt)queueCloudWrite();
+    queueCloudWrite();
     cloud.unsubscribe=firestore.onSnapshot(ref,snapshot=>{
       if(cloud.uid!==user.uid||!snapshot.exists()||snapshot.metadata.hasPendingWrites||!cloud.synced)return;
       const remote=snapshot.data()?.state;
