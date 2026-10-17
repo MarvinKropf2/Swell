@@ -211,7 +211,7 @@ let modalLocked=false,modalPageY=0;
 function syncModalLock(){const open=!!$('#modal')?.firstElementChild;if(open===modalLocked)return;modalLocked=open;if(open){modalPageY=window.scrollY;document.body.style.top=`-${modalPageY}px`;document.body.classList.add('modal-locked')}else{document.body.classList.remove('modal-locked');document.body.style.top='';window.scrollTo({top:modalPageY,behavior:'instant'})}}
 new MutationObserver(syncModalLock).observe($('#modal'),{childList:true});
 function modal(html){$('#modal').innerHTML=`<div class="editor-modal" data-modal-backdrop><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;syncModalLock()}
-function sheetTop(label){return `<div class="sheet-top"><span class="tiny">${esc(label)}${label==='EINSTELLUNGEN'?' · VERSION 35':''}</span><button class="icon-btn" data-close-modal aria-label="Schliessen">${ico('close')}</button></div>`}
+function sheetTop(label){return `<div class="sheet-top"><span class="tiny">${esc(label)}${label==='EINSTELLUNGEN'?' · VERSION 36':''}</span><button class="icon-btn" data-close-modal aria-label="Schliessen">${ico('close')}</button></div>`}
 function readinessOptions(kind,value=''){const labels=kind==='soreness'?['Kein Muskelkater','Leicht','Mittel','Deutlich','Sehr stark']:kind==='sleep'?['Sehr schlecht','Schlecht','Okay','Gut','Sehr gut']:['Sehr niedrig','Niedrig','Okay','Gut','Sehr hoch'];return `<option value="" disabled ${value?'':'selected'}>Auswählen</option>${labels.map((label,i)=>`<option value="${i+1}" ${Number(value)===i+1?'selected':''}>${i+1} · ${label}</option>`).join('')}`}
 function openReadiness(){view.readinessOpen=true;const current=state.readiness?.[today()]||{};modal(`${sheetTop('TAGESFORM')}<h2>Wie fühlst du dich heute?</h2><p class="sub" style="margin:-9px 0 18px">Drei kurze Angaben helfen SWELL, Steigerungen vorsichtiger einzuordnen.</p><form id="readiness-form" class="readiness-fields"><label class="field"><span>Schlaf</span><select name="sleep" required>${readinessOptions('sleep',current.sleep)}</select></label><label class="field"><span>Energie</span><select name="energy" required>${readinessOptions('energy',current.energy)}</select></label><label class="field"><span>Muskelkater</span><select name="soreness" required>${readinessOptions('soreness',current.soreness)}</select></label><button class="primary full" type="submit">Tagesform speichern</button><button class="secondary full" type="button" data-close-modal>Später</button></form>`)}
 function openSettings(){view.settingsOpen=true;const user=cloud.user,initial=(user?.displayName||user?.email||'S').trim().charAt(0).toUpperCase();const account=cloud.uid?`<div class="settings-account"><span class="account-avatar">${esc(initial)}</span><div class="grow"><strong>${esc(user?.displayName||'Google-Konto')}</strong><small>${esc(user?.email||'Angemeldet')}</small></div></div><div class="settings-row"><small><i class="sync-dot on"></i>${esc(cloud.status)}</small></div><button class="secondary full" data-cloud-action>Abmelden</button>`:cloud.configured?`<div class="settings-row"><strong>Auf allen Geräten synchronisieren</strong><small>Mit demselben Google-Konto sind Training, Kalender, Essen und Fortschritt überall verfügbar.</small></div><div class="settings-row"><small><i class="sync-dot"></i>${esc(cloud.status)}</small></div><button class="primary full" data-cloud-action>Mit Google anmelden</button>`:`<div class="settings-row"><strong>Google-Sync ist vorbereitet</strong><small>Für die Aktivierung fehlt noch einmalig die Verbindung zu einem Firebase-Projekt. Bis dahin bleiben alle Daten sicher in diesem Browser.</small></div><button class="secondary full" disabled>Einrichtung nötig</button>`;modal(`${sheetTop('EINSTELLUNGEN')}<h2>Einstellungen</h2><div class="card">${account}</div>${section('Datensicherung')}<div class="card"><div class="settings-row"><strong>Lokales Backup</strong><small>Exportiere eine Kopie deiner Daten oder stelle eine vorhandene SWELL-Datei wieder her.</small></div><div class="backup-tools"><button class="secondary" data-export>Backup exportieren</button><button class="secondary" data-import>Backup importieren</button><input type="file" id="import-file" accept="application/json,.json" hidden></div></div><p class="data-info">Keine Passwörter oder geheimen Zugangsdaten werden in SWELL gespeichert.</p>`)}
@@ -352,7 +352,7 @@ async function setupCloud(){
   catch{cloud.firestore=firestore.getFirestore(firebaseApp)}
   cloud.api={auth,firestore};
   cloud.status='Nicht angemeldet';refreshCloudView();
-  auth.onAuthStateChanged(cloud.auth,async user=>{
+  const connectUser=async user=>{
    clearTimeout(cloud.writeTimer);cloud.unsubscribe?.();cloud.unsubscribe=null;cloud.uid=user?.uid||null;cloud.user=user||null;cloud.synced=false;
    if(!user){cloud.status='Nicht angemeldet';refreshCloudView();return}
    const owner=localStorage.getItem('swell_cloud_owner');
@@ -376,7 +376,10 @@ async function setupCloud(){
       state=normalizeState(mergeRemote(remote,state));localSave();view.selectedPlanId=state.activePlanId;refreshCloudView();
     },error=>{cloud.status='Sync-Fehler: '+error.code;refreshCloudView()});
    }catch(e){if(cloud.uid!==user.uid)return;cloud.status=e.code==='permission-denied'?'Datenbankzugriff nicht freigegeben':'Offline · Lokal gespeichert';refreshCloudView();toast(e.code==='permission-denied'?'Firebase-Datenbankregeln prüfen':'Daten bleiben lokal gespeichert. Für die erste Verbindung bitte online gehen.')}
-  });
+  };
+  auth.onAuthStateChanged(cloud.auth,connectUser);
+  window.addEventListener('online',()=>{if(cloud.auth.currentUser&&!cloud.synced)void connectUser(cloud.auth.currentUser);else if(cloud.synced)queueCloudWrite()});
+  window.addEventListener('offline',()=>{if(cloud.uid){cloud.status='Offline · Lokal gespeichert';if(view.settingsOpen)openSettings()}});
  }catch(e){console.error('Firebase init failed',e);cloud.status='Firebase konnte nicht geladen werden';refreshCloudView()}
 }
 function queueCloudWrite(){clearTimeout(cloud.writeTimer);cloud.writeTimer=setTimeout(async()=>{
@@ -389,14 +392,16 @@ function queueCloudWrite(){clearTimeout(cloud.writeTimer);cloud.writeTimer=setTi
 async function cloudAction(){
  if(!cloud.configured){toast('Firebase muss zuerst konfiguriert werden');return}
  if(!cloud.auth){toast('Firebase wird vorbereitet');return}
+ if(cloud.authBusy)return;
+ cloud.authBusy=true;
  try{
-  if(cloud.uid){clearTimeout(cloud.writeTimer);if(cloud.synced)await cloud.api.firestore.setDoc(cloud.api.firestore.doc(cloud.firestore,'users',cloud.uid,'swellData','current'),{state:cloudPayload(state),updatedAt:cloud.api.firestore.serverTimestamp()});await cloud.api.auth.signOut(cloud.auth)}
+  if(cloud.uid){clearTimeout(cloud.writeTimer);if(cloud.synced&&navigator.onLine)await cloud.api.firestore.setDoc(cloud.api.firestore.doc(cloud.firestore,'users',cloud.uid,'swellData','current'),{state:cloudPayload(state),updatedAt:cloud.api.firestore.serverTimestamp()});await cloud.api.auth.signOut(cloud.auth)}
   else{
    const provider=new cloud.api.auth.GoogleAuthProvider();
    provider.setCustomParameters({prompt:'select_account'});
    await cloud.api.auth.signInWithPopup(cloud.auth,provider);
   }
- }catch(e){console.error('Firebase auth',e);if(e.code==='auth/popup-closed-by-user'||e.code==='auth/cancelled-popup-request')return;toast(e.code==='auth/popup-blocked'?'Bitte Pop-ups für SWELL in Safari erlauben und erneut anmelden':e.code==='auth/unauthorized-domain'?'Diese SWELL-Adresse muss in Firebase freigegeben werden':'Google-Anmeldung fehlgeschlagen. Bitte Verbindung prüfen.')}
+ }catch(e){console.error('Firebase auth',e);if(e.code==='auth/popup-closed-by-user'||e.code==='auth/cancelled-popup-request')return;toast(e.code==='auth/popup-blocked'?'Bitte Pop-ups für SWELL in Safari erlauben und erneut anmelden':e.code==='auth/unauthorized-domain'?'Diese SWELL-Adresse muss in Firebase freigegeben werden':'Google-Anmeldung fehlgeschlagen. Bitte Verbindung prüfen.')}finally{cloud.authBusy=false}
 }
 
 try{document.documentElement.classList.add('js');render();bindEdgeBackSwipe();if(updateRestore)requestAnimationFrame(()=>window.scrollTo({top:Number(updateRestore.scrollY)||0,behavior:'instant'}));else setTimeout(()=>{if(shouldPromptReadiness()&&!$('#modal').innerHTML)openReadiness()},250)}catch(e){document.documentElement.classList.remove('is-booting','is-updating');console.error('SWELL failed:',e);$('#page').innerHTML='<div class="card"><h2>Vorschau</h2><p>Bitte über Safari öffnen, JavaScript wird benötigt.</p></div>'}
