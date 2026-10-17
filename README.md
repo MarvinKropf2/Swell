@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 31.
+Mobile-first workout tracker for personal gym and surf preparation. Version 32.
 
 ## Deploy on Vercel
 
@@ -18,7 +18,7 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 31.
 - Open the app on today and resume an active workout after reopening it.
 - Start today's workout directly from the top of the Training tab.
 - Keep rest days out of the Training landing page and manage plan editing, duplication, activation, and deletion in one dedicated screen.
-- Keep the full training week collapsed until the weekly-plan card is opened.
+- Show the training week directly, with weekly-plan management immediately below the page heading.
 - Review completed exercises, sets, reps, weights, failure sets, and notes in the calendar.
 - Delete a saved workout directly from its calendar entry.
 - Keep today's workout at the top of Training and show only genuinely unfinished sessions underneath.
