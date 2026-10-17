@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 34.
+Mobile-first workout tracker for personal gym and surf preparation. Version 35.
 
 ## Deploy on Vercel
 
@@ -23,6 +23,7 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 34.
 - Review completed exercises, sets, reps, weights, failure sets, and notes in the calendar.
 - Start missed-workout tracking only when Google sync is first linked, then mark past scheduled days without a saved workout in the calendar.
 - Show each day's saved food entries, calories, and protein in the calendar.
+- Reset the calendar to today after leaving it, including when another month or date was selected.
 - Delete a saved workout directly from its calendar entry.
 - Keep today's workout at the top of Training and show only genuinely unfinished sessions underneath.
 - Show the last completed values as placeholders when repeating an exercise.
