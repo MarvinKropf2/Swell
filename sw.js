@@ -1,4 +1,4 @@
-const CACHE='swell-v27';
+const CACHE='swell-v28';
 const SHELL=['/','/index.html','/firebase-config.js','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
