@@ -1,4 +1,4 @@
-const CACHE='swell-v37-stretching';
+const CACHE='swell-v38';
 const SHELL=['/','/index.html','/firebase-config.js','/stretching.js','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
