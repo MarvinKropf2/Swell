@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 33.
+Mobile-first workout tracker for personal gym and surf preparation. Version 34.
 
 ## Deploy on Vercel
 
@@ -19,9 +19,10 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 33.
 - Start today's workout directly from the top of the Training tab.
 - Keep rest days out of the Training landing page and manage plan editing, duplication, activation, and deletion in one dedicated screen.
 - Show the training week directly, with weekly-plan management immediately below the page heading.
-- Keep the active plan name visible beside the training-week heading.
+- Show the active plan name in a dedicated panel below weekly-plan management.
 - Review completed exercises, sets, reps, weights, failure sets, and notes in the calendar.
-- Mark past scheduled workout days without a saved workout as not trained in the calendar.
+- Start missed-workout tracking only when Google sync is first linked, then mark past scheduled days without a saved workout in the calendar.
+- Show each day's saved food entries, calories, and protein in the calendar.
 - Delete a saved workout directly from its calendar entry.
 - Keep today's workout at the top of Training and show only genuinely unfinished sessions underneath.
 - Show the last completed values as placeholders when repeating an exercise.
