@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="35"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=35"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=35"><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon.png?v=35"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=35"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=35"><title>SWELL — Training</title>
+<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="35"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=36"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=36"><link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon.png?v=36"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=36"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=36"><title>SWELL — Training</title>
 <script>try{document.documentElement.classList.add('is-booting');if(sessionStorage.getItem('swell_update_restore'))document.documentElement.classList.add('is-updating')}catch{}</script>
 <style>
 :root{color-scheme:dark;--bg:#101513;--surf:#1b2420;--surf2:#202a25;--bd:#344039;--fg:#f2f5f0;--muted:#a3afa6;--sage:#bed7c4;--deep:#18221b;--ease:cubic-bezier(.22,1,.36,1);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
@@ -84,14 +84,14 @@ const seed=()=>{const days=emptyDays();const fill=(weekday,title,ex)=>{days[week
  fill(2,'Lower A',[['Squat Jumps',3,'4','jump','Surf'],['Kniebeugen',3,'6–10','squat'],['Romanian Deadlift',3,'8–10','rdl'],['Bulgarian Split Squat',3,'8–10','split'],['Beinbeuger',3,'10–12','legcurl'],['Pallof Press',3,'10','pallof','Core']]);
  fill(4,'Upper B',[['Pop-up Drill',3,'5','popup','Surf'],['Schulterdrücken',3,'6–10','shoulder'],['Latzug',3,'8–12','pullup'],['Rudern sitzend',3,'8–12','row'],['Brustpresse',3,'8–12','benchpress'],['Seitheben',3,'12–15','lateral'],['Bizepscurls',2,'10–12','curl'],['Trizepsdrücken',2,'10–12','triceps']]);
  fill(5,'Lower B',[['Skater Bounds',3,'5','jump','Surf'],['Beinpresse',3,'10','legpress'],['Ausfallschritte',3,'10','lunge'],['Hip Thrust',3,'8–12','hipthrust'],['Woodchops',3,'10','woodchop','Core'],['Wadenheben',3,'12–15','calf'],['Mobility',1,'5 Min','mobility','Mobility']]);
- const plan={id:'surf-strength',name:'Surf + Strength',days,draft:false};return {version:35,visualMode:'apple-flow',plans:[plan],activePlanId:plan.id,tab:'home',weekOffset:0,monthOffset:0,homeDate:today(),calendarDate:today(),selectedWeekday:new Date().getDay(),history:[],deletedLogIds:[],deletedPlanIds:[],session:null,readiness:{},food:{},weights:[],missedTrackingSince:null};};
+ const plan={id:'surf-strength',name:'Surf + Strength',days,draft:false};return {version:36,visualMode:'apple-flow',plans:[plan],activePlanId:plan.id,tab:'home',weekOffset:0,monthOffset:0,homeDate:today(),calendarDate:today(),selectedWeekday:new Date().getDay(),history:[],deletedLogIds:[],deletedPlanIds:[],session:null,readiness:{},food:{},weights:[],missedTrackingSince:null};};
 const KEY='swell_v7_data';
 const oldKey='swell_minimal_v2';
 const UPDATE_RESTORE_KEY='swell_update_restore';
 function consumeUpdateRestore(){try{const saved=JSON.parse(sessionStorage.getItem(UPDATE_RESTORE_KEY)||'null');sessionStorage.removeItem(UPDATE_RESTORE_KEY);return saved&&Date.now()-Number(saved.at||0)<120000?saved:null}catch{return null}}
 function migrateLegacy(){let fresh=seed();try{const old=JSON.parse(localStorage.getItem(oldKey)||'null');if(!old||!Array.isArray(old.history))return fresh;const wk=[1,2,4,5];const toLog=log=>{const weekday=wk[log.plan]??1,day=fresh.plans[0].days[weekday];return {id:log.id||uid(),date:log.date||today(),planId:fresh.plans[0].id,planName:fresh.plans[0].name,dayTitle:day.title,weekday,created:log.started||Date.now(),exercises:day.ex.map((ex,i)=>({id:ex.id,name:ex.name,sets:(log.sets?.[i]||[]).map(r=>({kg:String(r.kg??''),reps:String(r.reps??''),done:!!r.done,failure:!!r.failure,notes:String(r.notes??'')}))}))}};fresh.history=old.history.filter(w=>Number.isInteger(w?.plan)).map(toLog);fresh.weights=(old.weight||[]).map(x=>({date:x.date,value:Number(x.value)}));fresh.food=old.food||{};return fresh}catch{return fresh}}
 function load(){try{const obj=JSON.parse(localStorage.getItem(KEY)||'null');if(obj&&Array.isArray(obj.plans)&&obj.plans.length&&Array.isArray(obj.history))return {...seed(),...obj};return migrateLegacy()}catch{return seed()}}
-function normalizeState(obj){obj.version=35;delete obj.layoutMode;delete obj.restTimer;obj.visualMode='apple-flow';obj.deletedLogIds=Array.isArray(obj.deletedLogIds)?obj.deletedLogIds:[];obj.deletedPlanIds=Array.isArray(obj.deletedPlanIds)?obj.deletedPlanIds:[];obj.readiness=obj.readiness&&typeof obj.readiness==='object'?obj.readiness:{};obj.missedTrackingSince=/^\d{4}-\d{2}-\d{2}$/.test(String(obj.missedTrackingSince||''))?obj.missedTrackingSince:null;for(const p of obj.plans||[]){p.draft=!!p.draft;for(const d of p.days||[])for(const ex of d.ex||[]){ex.trackWeight=inferredTrackWeight(ex);if(!ex.trackWeight)ex.kg=''}}for(const log of obj.history||[]){if(!log.readiness&&obj.readiness[log.date])log.readiness=structuredClone(obj.readiness[log.date]);for(const ex of log.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}}if(obj.session)for(const ex of obj.session.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}if(obj.session&&(obj.history||[]).some(log=>log.id===obj.session.id||log.id===obj.session.editId))obj.session=null;return obj}
+function normalizeState(obj){obj.version=36;delete obj.layoutMode;delete obj.restTimer;obj.visualMode='apple-flow';obj.deletedLogIds=Array.isArray(obj.deletedLogIds)?obj.deletedLogIds:[];obj.deletedPlanIds=Array.isArray(obj.deletedPlanIds)?obj.deletedPlanIds:[];obj.readiness=obj.readiness&&typeof obj.readiness==='object'?obj.readiness:{};obj.missedTrackingSince=/^\d{4}-\d{2}-\d{2}$/.test(String(obj.missedTrackingSince||''))?obj.missedTrackingSince:null;for(const p of obj.plans||[]){p.draft=!!p.draft;for(const d of p.days||[])for(const ex of d.ex||[]){ex.trackWeight=inferredTrackWeight(ex);if(!ex.trackWeight)ex.kg=''}}for(const log of obj.history||[]){if(!log.readiness&&obj.readiness[log.date])log.readiness=structuredClone(obj.readiness[log.date]);for(const ex of log.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}}if(obj.session)for(const ex of obj.session.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}if(obj.session&&(obj.history||[]).some(log=>log.id===obj.session.id||log.id===obj.session.editId))obj.session=null;return obj}
 let state=normalizeState(load());
 const updateRestore=consumeUpdateRestore();
 if(updateRestore){state.tab=updateRestore.tab||'home'}else{state.tab='home';state.weekOffset=0;state.homeDate=today();state.monthOffset=0;state.calendarDate=today()}
@@ -103,7 +103,7 @@ syncVisualViewport();window.visualViewport?.addEventListener('resize',syncVisual
 if(!state.plans.some(p=>p.id===state.activePlanId))state.activePlanId=state.plans[0].id;
 let view={showPlans:false,showWeek:false,planBuilder:false,settingsOpen:false,sessionOpen:false,readinessOpen:false,readinessDismissed:false,planEditor:null,dayEditor:null,exEditor:null,sessionExEditor:null,exerciseDemo:null,selectedPlanId:state.activePlanId,backupOpen:false,...(updateRestore?.view||{})};
 function localSave(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch(e){toast('Speichern fehlgeschlagen. Browser-Speicher prüfen');return false}}
-function persist(){state.modifiedAt=Date.now();const success=localSave();if(success&&cloud.synced&&cloud.uid)queueCloudWrite();return success}
+function persist(){let changed=true;try{const previous=JSON.parse(localStorage.getItem(KEY)||'null');changed=!previous||JSON.stringify(cloudPayload(previous))!==JSON.stringify(cloudPayload(state))}catch{}if(changed)state.modifiedAt=Date.now();const success=localSave();if(success&&changed&&cloud.synced&&cloud.uid)queueCloudWrite();return success}
 const plan=()=>state.plans.find(p=>p.id===state.activePlanId)||state.plans[0];
 const viewPlan=()=>state.plans.find(p=>p.id===view.selectedPlanId)||plan();
 const day=(pl,weekday)=>pl.days.find(d=>d.weekday===Number(weekday));
@@ -309,6 +309,8 @@ document.addEventListener('click',e=>{if(e.target.matches('[data-modal-backdrop]
 });
 
 // Optional Firebase integration. Not loaded when firebase-config.js contains null.
+function cloudPayload(source){const copy=structuredClone(source);for(const key of ['tab','homeDate','calendarDate','weekOffset','monthOffset','selectedWeekday','visualMode'])delete copy[key];return copy}
+function untouchedPlans(plans){const comparable=value=>JSON.stringify(value,(key,item)=>key==='id'?undefined:item);return comparable(plans)===comparable(seed().plans)}
 function mergeRemote(remote,local){
  const newer=Number(remote.modifiedAt||0)>Number(local.modifiedAt||0);
  const primary=structuredClone(newer?remote:local),secondary=newer?local:remote;
@@ -320,6 +322,7 @@ function mergeRemote(remote,local){
  const planIds=new Set((primary.plans||[]).map(x=>x.id));
  primary.plans=(primary.plans||[]).filter(p=>!deletedPlanIds.has(p.id));
  for(const p of secondary.plans||[]){if(p.id&&!planIds.has(p.id)&&!deletedPlanIds.has(p.id)){primary.plans.push(p);planIds.add(p.id)}}
+ if(untouchedPlans(local.plans)&&remote.plans?.length){primary.plans=structuredClone(remote.plans).filter(p=>!deletedPlanIds.has(p.id));primary.activePlanId=remote.activePlanId}
  const weights=new Map((primary.weights||[]).map(x=>[x.date+':'+x.value,x]));
  for(const w of secondary.weights||[])weights.set(w.date+':'+w.value,w);
  primary.weights=[...weights.values()];
@@ -328,7 +331,8 @@ function mergeRemote(remote,local){
  primary.missedTrackingSince=[remote.missedTrackingSince,local.missedTrackingSince].filter(Boolean).sort()[0]||null;
  if(!primary.session&&secondary.session&&!(primary.history||[]).some(log=>log.id===secondary.session.id||log.id===secondary.session.editId))primary.session=secondary.session;
  if(!primary.plans.find(p=>p.id===primary.activePlanId))primary.activePlanId=primary.plans[0]?.id;
- primary.version=35;
+ for(const key of ['tab','homeDate','calendarDate','weekOffset','monthOffset','selectedWeekday','visualMode'])primary[key]=local[key];
+ primary.version=36;
  return primary;
 }
 function refreshCloudView(){render();if(view.settingsOpen)openSettings()}
@@ -349,12 +353,16 @@ async function setupCloud(){
   cloud.api={auth,firestore};
   cloud.status='Nicht angemeldet';refreshCloudView();
   auth.onAuthStateChanged(cloud.auth,async user=>{
-   cloud.unsubscribe?.();cloud.unsubscribe=null;cloud.uid=user?.uid||null;cloud.user=user||null;cloud.synced=false;
+   clearTimeout(cloud.writeTimer);cloud.unsubscribe?.();cloud.unsubscribe=null;cloud.uid=user?.uid||null;cloud.user=user||null;cloud.synced=false;
    if(!user){cloud.status='Nicht angemeldet';refreshCloudView();return}
+   const owner=localStorage.getItem('swell_cloud_owner');
+   if(owner&&owner!==user.uid){localStorage.setItem(KEY+':'+owner,JSON.stringify(state));const saved=localStorage.getItem(KEY+':'+user.uid);state=normalizeState(saved?JSON.parse(saved):seed());view.selectedPlanId=state.activePlanId;view.sessionOpen=false}
+   localStorage.setItem('swell_cloud_owner',user.uid);
    cloud.status='Daten werden geladen';refreshCloudView();
    const ref=firestore.doc(cloud.firestore,'users',user.uid,'swellData','current');
    try{
     const initial=await firestore.getDoc(ref);
+    if(cloud.uid!==user.uid)return;
     if(initial.exists()&&initial.data().state)state=normalizeState(mergeRemote(initial.data().state,state));
     if(!state.missedTrackingSince){state.missedTrackingSince=today();state.modifiedAt=Date.now()}
     localSave();
@@ -362,32 +370,33 @@ async function setupCloud(){
     view.selectedPlanId=state.activePlanId;refreshCloudView();
     if(!initial.exists()||initial.data().state?.modifiedAt!==state.modifiedAt)queueCloudWrite();
     cloud.unsubscribe=firestore.onSnapshot(ref,snapshot=>{
-      if(!snapshot.exists()||snapshot.metadata.hasPendingWrites||!cloud.synced)return;
+      if(cloud.uid!==user.uid||!snapshot.exists()||snapshot.metadata.hasPendingWrites||!cloud.synced)return;
       const remote=snapshot.data()?.state;
       if(!remote||Number(remote.modifiedAt||0)<=Number(state.modifiedAt||0))return;
       state=normalizeState(mergeRemote(remote,state));localSave();view.selectedPlanId=state.activePlanId;refreshCloudView();
     },error=>{cloud.status='Sync-Fehler: '+error.code;refreshCloudView()});
-   }catch(e){cloud.status='Sync nicht möglich';refreshCloudView();toast('Firebase: Zugriff oder Netzwerk prüfen')}
+   }catch(e){if(cloud.uid!==user.uid)return;cloud.status=e.code==='permission-denied'?'Datenbankzugriff nicht freigegeben':'Offline · Lokal gespeichert';refreshCloudView();toast(e.code==='permission-denied'?'Firebase-Datenbankregeln prüfen':'Daten bleiben lokal gespeichert. Für die erste Verbindung bitte online gehen.')}
   });
  }catch(e){console.error('Firebase init failed',e);cloud.status='Firebase konnte nicht geladen werden';refreshCloudView()}
 }
 function queueCloudWrite(){clearTimeout(cloud.writeTimer);cloud.writeTimer=setTimeout(async()=>{
  if(!cloud.uid||!cloud.synced||!cloud.firestore)return;
- const copy=structuredClone(state),ref=cloud.api.firestore.doc(cloud.firestore,'users',cloud.uid,'swellData','current');
- try{await cloud.api.firestore.setDoc(ref,{state:copy,updatedAt:cloud.api.firestore.serverTimestamp()})}
- catch(e){console.error('SWELL Firebase save',e);cloud.status='Sync-Fehler · Lokal gespeichert';refreshCloudView()}
+ const account=cloud.uid,copy=cloudPayload(state),ref=cloud.api.firestore.doc(cloud.firestore,'users',account,'swellData','current');
+ cloud.status=navigator.onLine?'Wird synchronisiert':'Offline · Lokal gespeichert';if(view.settingsOpen)openSettings();
+ try{await cloud.api.firestore.setDoc(ref,{state:copy,updatedAt:cloud.api.firestore.serverTimestamp()});if(cloud.uid===account){cloud.status='Mit Google verbunden';if(view.settingsOpen)openSettings()}}
+ catch(e){console.error('SWELL Firebase save',e);if(cloud.uid===account){cloud.status='Sync-Fehler · Lokal gespeichert';if(view.settingsOpen)openSettings()}}
  },1100)}
 async function cloudAction(){
  if(!cloud.configured){toast('Firebase muss zuerst konfiguriert werden');return}
  if(!cloud.auth){toast('Firebase wird vorbereitet');return}
  try{
-  if(cloud.uid)await cloud.api.auth.signOut(cloud.auth);
+  if(cloud.uid){clearTimeout(cloud.writeTimer);if(cloud.synced)await cloud.api.firestore.setDoc(cloud.api.firestore.doc(cloud.firestore,'users',cloud.uid,'swellData','current'),{state:cloudPayload(state),updatedAt:cloud.api.firestore.serverTimestamp()});await cloud.api.auth.signOut(cloud.auth)}
   else{
    const provider=new cloud.api.auth.GoogleAuthProvider();
-   try{await cloud.api.auth.signInWithPopup(cloud.auth,provider)}
-   catch(error){if(error.code==='auth/popup-blocked'||error.code==='auth/cancelled-popup-request')await cloud.api.auth.signInWithRedirect(cloud.auth,provider);else throw error}
+   provider.setCustomParameters({prompt:'select_account'});
+   await cloud.api.auth.signInWithPopup(cloud.auth,provider);
   }
- }catch(e){console.error('Firebase auth',e);toast('Google-Anmeldung konnte nicht gestartet werden')}
+ }catch(e){console.error('Firebase auth',e);if(e.code==='auth/popup-closed-by-user'||e.code==='auth/cancelled-popup-request')return;toast(e.code==='auth/popup-blocked'?'Bitte Pop-ups für SWELL in Safari erlauben und erneut anmelden':e.code==='auth/unauthorized-domain'?'Diese SWELL-Adresse muss in Firebase freigegeben werden':'Google-Anmeldung fehlgeschlagen. Bitte Verbindung prüfen.')}
 }
 
 try{document.documentElement.classList.add('js');render();bindEdgeBackSwipe();if(updateRestore)requestAnimationFrame(()=>window.scrollTo({top:Number(updateRestore.scrollY)||0,behavior:'instant'}));else setTimeout(()=>{if(shouldPromptReadiness()&&!$('#modal').innerHTML)openReadiness()},250)}catch(e){document.documentElement.classList.remove('is-booting','is-updating');console.error('SWELL failed:',e);$('#page').innerHTML='<div class="card"><h2>Vorschau</h2><p>Bitte über Safari öffnen, JavaScript wird benötigt.</p></div>'}
@@ -400,7 +409,7 @@ async function registerWorker(){
  let refreshing=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;showUpdateSkeleton();setTimeout(()=>location.reload(),220)});
  try{
-  const registration=await navigator.serviceWorker.register('/sw.js?v=35',{updateViaCache:'none'});
+  const registration=await navigator.serviceWorker.register('/sw.js?v=36',{updateViaCache:'none'});
   await registration.update();
   const worker=registration.installing||registration.waiting;
   if(worker){

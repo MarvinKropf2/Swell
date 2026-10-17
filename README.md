@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 35.
+Mobile-first workout tracker for personal gym and surf preparation. Version 36.
 
 ## Deploy on Vercel
 
@@ -51,12 +51,12 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 35.
 
 By default your information is saved in **localStorage on your browser and domain** only, **not** in GitHub or Vercel. Export a JSON backup through the app. Browser-data deletion or changing to a different Vercel domain can erase access to saved local workouts.
 
-Optional Google/Firebase synchronization is **prepared but not configured**. To activate the Google login and cross-device sync once:
+Google/Firebase synchronization is configured for `swell-747e4`. Sign in from Settings with the same Google account on each device. Analytics is not loaded. The following console settings are required:
 
 1. Create a Firebase project and register a web app.
 2. Enable **Google** under Firebase Authentication → Sign-in method.
 3. Create a Firestore database and publish the included `firestore.rules`.
-4. Add the public Firebase web-app configuration to `firebase-config.js`.
+4. Public Firebase web-app configuration is included in `firebase-config.js`.
 5. Add the production Vercel domain to Firebase Authentication → Authorized domains.
 
 Firebase's web-app configuration identifies the project but is not an admin credential. Never commit service-account credentials, private keys, workout exports, or other secrets.
