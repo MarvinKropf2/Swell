@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 28.
+Mobile-first workout tracker for personal gym and surf preparation. Version 29.
 
 ## Deploy on Vercel
 
@@ -24,8 +24,8 @@ Mobile-first workout tracker for personal gym and surf preparation. Version 28.
 - Show the last completed values as placeholders when repeating an exercise.
 - Suggest conservative load or repetition progress based on the last sessions, target range, failure sets, and today's readiness.
 - Add or swap exercises for the current workout without changing the weekly plan, using either a new exercise or a quick picker containing saved exercises.
-- Expand concise technique instructions for every exercise, including a concrete five-minute mobility flow.
-- Open clear in-workout "So geht's" instructions directly from each exercise card instead of relying on unavailable demo animations.
+- Expand curated technique instructions for built-in exercises, including a concrete five-minute mobility flow.
+- Add optional personal "So geht's" instructions to custom exercises; exercises without guidance never show placeholder advice.
 - Keep workout start actions above long exercise lists so starting never requires scrolling to the bottom.
 - Ask for sleep, energy, and soreness once per local day, never before 05:00, and show the saved scores as compact icons beside Today.
 - Show a workout summary with completed exercises, sets, volume, duration, and new records after saving and in the calendar.
