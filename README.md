@@ -1,6 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 38.
+Mobile-first workout tracker for personal gym and surf preparation. Version 39.
+
+Training separates the weekly gym plan and optional stretching into two sections. On rest days stretching comes first and the gym plan starts collapsed; on gym days stretching follows the gym plan. Stretching management supports creating, editing, copying and deleting routines, editing individual guided stretches, and assigning routines to rest weekdays. Routine settings synchronize with the account; saved calendar entries retain their original exercises and instructions.
 
 Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-chain routines across the active plan's rest days. Each stretch has an expandable guide and a single completion check, with no weight, repetition, or timer fields. Sessions resume, sync, and save in the calendar; they do not count toward strength-workout totals or missed-workout completion. Guide references: [NHS flexibility exercises](https://www.nhs.uk/live-well/exercise/flexibility-exercises/), [NHS post-exercise stretches](https://www.nhs.uk/live-well/exercise/how-to-stretch-after-exercising/).
 

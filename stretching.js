@@ -22,18 +22,38 @@ const stretchGroups = [
   ]}
 ];
 
+function defaultStretchPlans(){return stretchGroups.map((g,index)=>({id:`stretch-plan-${index}`,name:g.name,exercises:g.exercises.map(([name,area,steps],i)=>({id:`stretch-${index}-${i}`,name,area,howTo:steps.map((step,n)=>`${n+1}. ${step}`).join('\n\n')}))}))}
+function normalizeStretchPlans(obj){
+  if(!Array.isArray(obj.stretchPlans)||!obj.stretchPlans.length)obj.stretchPlans=defaultStretchPlans();
+  obj.stretchAssignments=obj.stretchAssignments&&typeof obj.stretchAssignments==='object'?obj.stretchAssignments:{};
+  obj.stretchAssignmentsUpdatedAt=Number(obj.stretchAssignmentsUpdatedAt)||0;
+  obj.deletedStretchPlanIds=Array.isArray(obj.deletedStretchPlanIds)?obj.deletedStretchPlanIds:[];
+  return obj;
+}
+function mergeStretchPlans(primary,secondary,remote,local){
+  const deleted=new Set([...(primary.deletedStretchPlanIds||[]),...(secondary.deletedStretchPlanIds||[])]);
+  let plans=structuredClone(primary.stretchPlans||defaultStretchPlans());
+  if(JSON.stringify(local.stretchPlans||defaultStretchPlans())===JSON.stringify(defaultStretchPlans())&&remote.stretchPlans?.length)plans=structuredClone(remote.stretchPlans);
+  const ids=new Set(plans.map(p=>p.id));for(const p of secondary.stretchPlans||[])if(!ids.has(p.id)){plans.push(structuredClone(p));ids.add(p.id)}
+  primary.stretchPlans=plans.filter(p=>!deleted.has(p.id));primary.deletedStretchPlanIds=[...deleted];
+  const remoteAt=Number(remote.stretchAssignmentsUpdatedAt)||0,localAt=Number(local.stretchAssignmentsUpdatedAt)||0;
+  const assignments=remoteAt>localAt?remote:localAt>remoteAt?local:!Object.keys(local.stretchAssignments||{}).length?remote:primary;
+  primary.stretchAssignments=structuredClone(assignments.stretchAssignments||{});primary.stretchAssignmentsUpdatedAt=Number(assignments.stretchAssignmentsUpdatedAt)||0;
+}
 function stretchRoutine(date,p=plan()){
   if(dayForDate(date,p)?.ex?.length)return null;
   const rest=[1,2,3,4,5,6,0].filter(w=>!day(p,w)?.ex?.length),index=rest.indexOf(parseDate(date).getDay());
   if(index<0)return null;
-  const slots=Math.min(3,rest.length),groups=stretchGroups.filter((_,i)=>i%slots===index%slots);
-  return {title:slots===1?'Ganzkörper-Stretching':groups.map(g=>g.name).join(' · '),exercises:groups.flatMap(g=>g.exercises.map(([name,area,steps],i)=>({id:`stretch-${stretchGroups.indexOf(g)}-${i}`,name,area,howTo:steps.map((step,n)=>`${n+1}. ${step}`).join('\n\n')})))};
+  const plans=state.stretchPlans||defaultStretchPlans(),assigned=plans.find(r=>r.id===state.stretchAssignments?.[parseDate(date).getDay()]);
+  if(assigned)return {title:assigned.name,exercises:structuredClone(assigned.exercises)};
+  const slots=Math.min(plans.length,rest.length),groups=plans.filter((_,i)=>i%slots===index%slots);
+  return {title:slots===1&&groups.length>1?'Ganzkörper-Stretching':groups.map(g=>g.name).join(' · '),exercises:groups.flatMap(g=>structuredClone(g.exercises))};
 }
 function optionalStretchCard(date,p=plan()){
   const routine=stretchRoutine(date,p);if(!routine)return '';
   const saved=logsForDate(date).some(log=>log.kind==='stretching');
   if(saved&&state.tab==='calendar')return '';
-  return `<div class="card"><span class="tiny">OPTIONAL · STRETCHING</span><h3>${esc(routine.title)}</h3><p class="sub">${routine.exercises.length} Dehnungen${saved?' · Bereits gespeichert':''}</p><button class="secondary full" style="margin-top:14px" data-start-stretch="${esc(date)}">${state.session?.kind==='stretching'&&state.session.date===date?'Stretching fortsetzen':saved?'Stretching ansehen':'Stretching öffnen'} ${ico('arrow')}</button></div>`;
+  return `<div class="card"><span class="tiny">OPTIONAL · STRETCHING</span><h3>${esc(routine.title)}</h3><p class="sub">${routine.exercises.length} ${routine.exercises.length===1?'Dehnung':'Dehnungen'}${saved?' · Bereits gespeichert':''}</p><button class="secondary full" style="margin-top:14px" data-start-stretch="${esc(date)}">${state.session?.kind==='stretching'&&state.session.date===date?'Stretching fortsetzen':saved?'Stretching ansehen':'Stretching öffnen'} ${ico('arrow')}</button></div>`;
 }
 function startStretching(date){
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
@@ -52,3 +72,42 @@ function renderStretchSession(){
 function stretchSummaryMarkup(log){return `<p class="sub">${completedExercises(log).length} von ${log.exercises.length} Dehnungen erledigt</p>`}
 function renderSavedStretch(log){return `<div class="history-workout"><span class="tiny">OPTIONALES STRETCHING</span><h3>${esc(log.dayTitle)}</h3>${stretchSummaryMarkup(log)}${log.exercises.map(ex=>`<div class="history-exercise"><div class="between"><h4>${esc(ex.name)}</h4><span class="mini-count">${ex.sets.some(s=>s.done)?'✓ Erledigt':'Ausgelassen'}</span></div><details class="exercise-guide"><summary>So geht’s</summary>${guideContent(ex)}</details></div>`).join('')}<div class="history-actions"><button class="text-btn" data-edit-log="${esc(log.id)}">Bearbeiten</button><button class="text-btn danger" data-delete-log="${esc(log.id)}" aria-label="Stretching löschen">Löschen</button></div></div>`}
 function openStretchSummary(log){modal(`${sheetTop('STRETCHING GESPEICHERT')}<h2>${esc(log.dayTitle)}</h2>${stretchSummaryMarkup(log)}<button class="primary full" style="margin-top:18px" data-close-modal>Fertig</button>`)}
+
+function stretchWeekMarkup(){const rows=weekDays(0).map(d=>{const date=iso(d),routine=stretchRoutine(date);return routine?`<div class="stretch-week-row"><span class="tiny">${esc(fmt(date,{weekday:'long'}))}</span><strong>${esc(routine.title)}</strong><small>${routine.exercises.length} ${routine.exercises.length===1?'Dehnung':'Dehnungen'} · optional</small></div>`:''}).join('');return rows||'<p class="sub">Keine Ruhetage im aktiven Wochenplan.</p>'}
+function renderStretchModule(gymToday){return `<section class="training-module" aria-label="Stretching">${header('Optional','Stretching')}<button class="secondary full module-action" data-stretch-manage>Stretching-Pläne verwalten</button>${gymToday?'':optionalStretchCard(today())}<details class="stretch-week" ${gymToday?'open':''}><summary>Stretching-Woche</summary>${stretchWeekMarkup()}</details></section>`}
+function renderTrainingModules(p){
+  const gymToday=!!dayForDate(today())?.ex?.length,key=today()+':'+p.id+':'+gymToday;
+  if(view.gymWeekKey!==key){view.gymWeekKey=key;view.gymWeekOpen=gymToday}
+  const active=p.id===state.activePlanId;
+  const gym=`<section class="training-module" aria-label="Wochenplan">${gymToday?header('Training','Wochenplan'):`<button class="week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Wochenplan</strong>${ico('chevron')}</button>`}<div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="${gymToday?'':'training-week-body'}"><button class="secondary full manage-plans-shortcut" data-manage>Wochenpläne verwalten</button>${gymToday?todayTrainingCard():''}<div class="card active-plan-panel"><span class="tiny">${active?'AKTIVER WOCHENPLAN':'GESPEICHERTER WOCHENPLAN'}</span><strong>${esc(p.name)}</strong></div>${section('Trainingswoche')}${trainingWeekMarkup(p)}</div></section>`;
+  return `${pendingTrainingCard()}<div class="training-modules">${gymToday?gym+renderStretchModule(true):renderStretchModule(false)+gym}</div>`;
+}
+function renderStretchManager(){
+  if(view.stretchDraft)return renderStretchPlanEditor();
+  const rests=[1,2,3,4,5,6,0].filter(w=>!day(plan(),w)?.ex?.length);
+  return `<div class="stretch-manager"><button class="back-btn" data-stretch-back>${ico('back')} Training</button>${header('Stretching','Stretching-Pläne')}<button class="primary full" data-stretch-new>+ Neuen Stretching-Plan erstellen</button><h2>Gespeicherte Routinen</h2><div class="stretch-plan-list">${state.stretchPlans.map(p=>`<div class="card stretch-plan-card"><div><h3>${esc(p.name)}</h3><span class="muted small">${p.exercises.length} ${p.exercises.length===1?'Dehnung':'Dehnungen'}</span></div><div class="stretch-plan-actions"><button class="secondary" data-stretch-edit="${esc(p.id)}">Bearbeiten</button><button class="icon-btn" data-stretch-copy="${esc(p.id)}" aria-label="${esc(p.name)} duplizieren">${ico('copy')}</button><button class="icon-btn danger" data-stretch-delete="${esc(p.id)}" aria-label="${esc(p.name)} löschen" ${state.stretchPlans.length<=1?'disabled':''}>${ico('trash')}</button></div></div>`).join('')}</div><h2>Ruhetage zuordnen</h2><div class="card stretch-assignment-fields">${rests.length?rests.map(w=>`<label class="field"><span>${['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'][w]}</span><select data-stretch-assignment="${w}"><option value="">Automatisch verteilen</option>${state.stretchPlans.map(p=>`<option value="${esc(p.id)}" ${state.stretchAssignments[w]===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select></label>`).join(''):'<p class="sub">Keine Ruhetage im aktiven Wochenplan.</p>'}</div></div>`;
+}
+function renderStretchPlanEditor(){const draft=view.stretchDraft;return `<div class="stretch-manager"><button class="back-btn" data-stretch-editor-back>${ico('back')} Stretching-Pläne</button>${header('Stretching',view.stretchNew?'Neue Routine':'Routine bearbeiten')}<form id="stretch-plan-form" class="stretch-draft-form" autocomplete="off"><label class="field"><span>Name</span><input name="stretchPlanTitle" maxlength="80" required value="${esc(draft.name)}" placeholder="Name der Routine"></label><h2>Dehnungen</h2><div class="stretch-plan-list">${draft.exercises.map((ex,i)=>`<div class="card stretch-plan-card"><div class="stretch-editor-heading"><div><h3>${esc(ex.name)}</h3><small class="muted">${esc(ex.area||'Stretching')}</small></div><div class="stretch-plan-actions"><button type="button" class="icon-btn" data-stretch-ex-edit="${i}" aria-label="${esc(ex.name)} bearbeiten">${ico('edit')}</button><button type="button" class="icon-btn danger" data-stretch-ex-delete="${i}" aria-label="${esc(ex.name)} entfernen">${ico('trash')}</button></div></div>${ex.howTo?`<details class="exercise-guide"><summary>So geht’s</summary>${guideContent(ex)}</details>`:''}</div>`).join('')}</div><button type="button" class="secondary full" data-stretch-ex-add>+ Dehnung hinzufügen</button><div class="stretch-editor-actions"><button type="button" class="secondary" data-stretch-editor-back>Abbrechen</button><button class="primary" type="submit">Routine speichern</button></div></form></div>`}
+function rememberStretchDraft(){const name=$('[name="stretchPlanTitle"]');if(name&&view.stretchDraft)view.stretchDraft.name=name.value}
+function openStretchExerciseEditor(index=null){rememberStretchDraft();view.stretchExerciseIndex=index;const ex=index===null?null:view.stretchDraft?.exercises[index];modal(`${sheetTop('DEHNUNG')}<h2>${ex?'Dehnung bearbeiten':'Dehnung hinzufügen'}</h2><form id="stretch-exercise-form" autocomplete="off"><label class="field"><span>Name</span><input name="stretchName" maxlength="90" required value="${esc(ex?.name||'')}"></label><label class="field"><span>Körperbereich</span><input name="stretchArea" maxlength="90" value="${esc(ex?.area||'')}"></label><label class="field"><span>So geht’s</span><textarea name="stretchHowTo" rows="7" maxlength="4000" required placeholder="Ausgangsposition, Ausführung und worauf du achten möchtest">${esc(ex?.howTo||'')}</textarea></label><button class="primary full" type="submit">Dehnung speichern</button></form>`)}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.toggleGymWeek!==undefined){view.gymWeekOpen=!view.gymWeekOpen;b.setAttribute('aria-expanded',String(view.gymWeekOpen));$('#gym-week-body').hidden=!view.gymWeekOpen;return}
+  if(d.stretchManage!==undefined){view.stretchManager=true;view.stretchDraft=null;view.dayDetail=null;render();topPage();return}
+  if(d.stretchBack!==undefined){view.stretchManager=false;view.stretchDraft=null;render();topPage();return}
+  if(d.stretchEditorBack!==undefined){rememberStretchDraft();const original=state.stretchPlans.find(p=>p.id===view.stretchDraft?.id),changed=original?JSON.stringify(original)!==JSON.stringify(view.stretchDraft):!!(view.stretchDraft?.name||view.stretchDraft?.exercises.length);if(changed){modal(`${sheetTop('ÄNDERUNGEN')}<h2>Änderungen verwerfen?</h2><div class="stretch-editor-actions"><button class="secondary" data-close-modal>Weiter bearbeiten</button><button class="primary" data-stretch-discard-draft>Verwerfen</button></div>`);return}view.stretchDraft=null;render();topPage();return}
+  if(d.stretchDiscardDraft!==undefined){view.stretchDraft=null;$('#modal').innerHTML='';render();topPage();return}
+  if(d.stretchNew!==undefined){view.stretchNew=true;view.stretchDraft={id:uid(),name:'',exercises:[]};render();topPage();return}
+  if(d.stretchEdit){const p=state.stretchPlans.find(p=>p.id===d.stretchEdit);if(!p)return;view.stretchNew=false;view.stretchDraft=structuredClone(p);render();topPage();return}
+  if(d.stretchCopy){const p=state.stretchPlans.find(p=>p.id===d.stretchCopy);if(!p)return;view.stretchNew=true;view.stretchDraft={...structuredClone(p),id:uid(),name:p.name+' (Kopie)'};render();topPage();return}
+  if(d.stretchDelete){const p=state.stretchPlans.find(p=>p.id===d.stretchDelete);if(!p||state.stretchPlans.length<=1)return;modal(`${sheetTop('ROUTINE LÖSCHEN')}<h2>${esc(p.name)} löschen?</h2><p class="sub">Gespeicherte Einheiten bleiben im Kalender.</p><div class="stretch-editor-actions"><button class="secondary" data-close-modal>Abbrechen</button><button class="primary" data-stretch-delete-confirm="${esc(p.id)}">Löschen</button></div>`);return}
+  if(d.stretchDeleteConfirm){const id=d.stretchDeleteConfirm;if(state.stretchPlans.length<=1||!state.stretchPlans.some(p=>p.id===id))return;state.stretchPlans=state.stretchPlans.filter(p=>p.id!==id);state.deletedStretchPlanIds=[...new Set([...state.deletedStretchPlanIds,id])];for(const w of Object.keys(state.stretchAssignments))if(state.stretchAssignments[w]===id)delete state.stretchAssignments[w];$('#modal').innerHTML='';persist();render();toast('Stretching-Plan gelöscht');return}
+  if(d.stretchExAdd!==undefined){openStretchExerciseEditor();return}
+  if(d.stretchExEdit!==undefined){openStretchExerciseEditor(Number(d.stretchExEdit));return}
+  if(d.stretchExDelete!==undefined){rememberStretchDraft();const index=Number(d.stretchExDelete);if(!view.stretchDraft?.exercises[index])return;view.stretchDraft.exercises.splice(index,1);render();return}
+});
+document.addEventListener('change',e=>{if(e.target.dataset.stretchAssignment===undefined)return;const w=e.target.dataset.stretchAssignment,id=e.target.value;if(id&&!state.stretchPlans.some(p=>p.id===id))return;if(id)state.stretchAssignments[w]=id;else delete state.stretchAssignments[w];state.stretchAssignmentsUpdatedAt=Date.now();persist();toast('Stretching-Zuordnung gespeichert')});
+document.addEventListener('submit',e=>{
+  if(e.target.id==='stretch-plan-form'){e.preventDefault();const name=e.target.elements.namedItem('stretchPlanTitle').value.trim();if(!name||!view.stretchDraft)return;if(!view.stretchDraft.exercises.length){toast('Füge zuerst eine Dehnung hinzu');return}const saved={...structuredClone(view.stretchDraft),name},index=state.stretchPlans.findIndex(p=>p.id===saved.id);if(index<0)state.stretchPlans.push(saved);else state.stretchPlans[index]=saved;view.stretchDraft=null;persist();render();topPage();toast('Stretching-Plan gespeichert');return}
+  if(e.target.id==='stretch-exercise-form'){e.preventDefault();if(!view.stretchDraft)return;const f=e.target.elements,name=f.namedItem('stretchName').value.trim(),howTo=f.namedItem('stretchHowTo').value.trim();if(!name||!howTo)return;const index=view.stretchExerciseIndex,previous=index===null?null:view.stretchDraft.exercises[index],ex={id:previous?.id||uid(),name,area:f.namedItem('stretchArea').value.trim(),howTo};if(index===null)view.stretchDraft.exercises.push(ex);else view.stretchDraft.exercises[index]=ex;$('#modal').innerHTML='';render();toast('Dehnung übernommen');return}
+});
