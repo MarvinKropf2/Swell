@@ -465,7 +465,7 @@ function cloudStateFromDocs(documents){
  const metaDoc=documents.get('meta_v2');if(!metaDoc||metaDoc.schema!==2||metaDoc.data?.ready!==true)return null;
  const meta=structuredClone(metaDoc.data||{}),planOrder=meta.planOrder||[],stretchOrder=meta.stretchPlanOrder||[];
  for(const key of ['schema','ready','planOrder','stretchPlanOrder'])delete meta[key];
- const base={...seed(),...meta,plans:[],history:[],food:{},readiness:{},weights:[],planTimeline:[],stretchPlans:[],deletedLogIds:[],deletedLogAt:{},restoredLogAt:{},deletedPlanIds:[],deletedStretchPlanIds:[],session:null,planOrder,stretchPlanOrder};
+ const base={...seed(),...meta,plans:[],history:[],food:{},readiness:{},weights:[],planTimeline:[],stretchPlans:[],deletedLogIds:[],deletedLogAt:{},restoredLogAt:{},deletedPlanIds:[],deletedStretchPlanIds:[],session:null,planOrder,stretchPlanOrder:stretchOrder};
  const planRecords=[],stretchRecords=[];
  for(const [docId,raw] of documents){if(docId==='meta_v2'||docId==='current')continue;const doc=structuredClone(raw||{}),value=doc.data;
   if(doc.kind==='plan'&&value){value.updatedAt=Number(value.updatedAt||doc.recordUpdatedAt)||0;planRecords.push(value)}
