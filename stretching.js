@@ -41,8 +41,9 @@ function mergeStretchPlans(primary,secondary,remote,local){
   primary.stretchAssignments=structuredClone(assignments.stretchAssignments||{});primary.stretchAssignmentsUpdatedAt=Number(assignments.stretchAssignmentsUpdatedAt)||0;
 }
 function stretchRoutine(date,p=plan()){
+  const scheduledPlan=planSnapshotForDate(date,p);
   if(dayForDate(date,p)?.ex?.length)return null;
-  const rest=[1,2,3,4,5,6,0].filter(w=>!day(p,w)?.ex?.length),index=rest.indexOf(parseDate(date).getDay());
+  const rest=[1,2,3,4,5,6,0].filter(w=>!day(scheduledPlan,w)?.ex?.length),index=rest.indexOf(parseDate(date).getDay());
   if(index<0)return null;
   const plans=state.stretchPlans||defaultStretchPlans(),assigned=plans.find(r=>r.id===state.stretchAssignments?.[parseDate(date).getDay()]);
   if(assigned)return {title:assigned.name,exercises:structuredClone(assigned.exercises)};
@@ -75,13 +76,26 @@ function openStretchSummary(log){modal(`${sheetTop('STRETCHING GESPEICHERT')}<h2
 
 function stretchWeekMarkup(){const rows=weekDays(0).map(d=>{const date=iso(d),routine=stretchRoutine(date);return routine?`<div class="stretch-week-row"><span class="tiny">${esc(fmt(date,{weekday:'long'}))}</span><strong>${esc(routine.title)}</strong><small>${routine.exercises.length} ${routine.exercises.length===1?'Dehnung':'Dehnungen'} · optional</small></div>`:''}).join('');return rows||'<p class="sub">Keine Ruhetage im aktiven Wochenplan.</p>'}
 function renderStretchModule(gymToday){return `<section class="training-module" aria-label="Stretching">${header('Optional','Stretching')}<button class="secondary full module-action" data-stretch-manage>Stretching-Pläne verwalten</button>${gymToday?'':optionalStretchCard(today())}<details class="stretch-week" ${gymToday?'open':''}><summary>Stretching-Woche</summary>${stretchWeekMarkup()}</details></section>`}
-function renderTrainingModules(p){
-  const gymToday=!!dayForDate(today())?.ex?.length,key=today()+':'+p.id+':'+gymToday;
+function renderTrainingModulesLegacy(p){
+  const gymToday=!!dayForDate(today(),p)?.ex?.length,key=today()+':'+p.id+':'+gymToday;
   if(view.gymWeekKey!==key){view.gymWeekKey=key;view.gymWeekOpen=gymToday}
   const active=p.id===state.activePlanId;
   const gym=`<section class="training-module" aria-label="Wochenplan">${gymToday?header('Training','Wochenplan'):`<button class="week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Wochenplan</strong>${ico('chevron')}</button>`}<div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="${gymToday?'':'training-week-body'}"><button class="secondary full manage-plans-shortcut" data-manage>Wochenpläne verwalten</button>${gymToday?todayTrainingCard():''}<div class="card active-plan-panel"><span class="tiny">${active?'AKTIVER WOCHENPLAN':'GESPEICHERTER WOCHENPLAN'}</span><strong>${esc(p.name)}</strong></div>${section('Trainingswoche')}${trainingWeekMarkup(p)}</div></section>`;
   return `${pendingTrainingCard()}<div class="training-modules">${gymToday?gym+renderStretchModule(true):renderStretchModule(false)+gym}</div>`;
 }
+function renderTrainingModulesClear(p){
+  const gymToday=!!dayForDate(today(),p)?.ex?.length,key=today()+':'+p.id+':'+gymToday;
+  if(view.gymWeekKey!==key){view.gymWeekKey=key;view.gymWeekOpen=gymToday}
+  const active=p.id===state.activePlanId;
+  const planRow=`<div class="clear-plan-row"><div class="grow"><span class="tiny">${active?'AKTIVER WOCHENPLAN':'GEÖFFNETER WOCHENPLAN'}</span><strong>${esc(p.name)}</strong></div><button class="secondary" data-manage>Verwalten</button></div>`;
+  const weeks=`${section('Trainingswoche')}<div class="clear-week-list">${trainingWeekMarkup(p)}</div>`;
+  const gym=gymToday
+    ?`<section class="training-clear-gym" aria-label="Wochenplan">${todayTrainingCard()}${pendingTrainingCard()}${planRow}${weeks}</section>`
+    :`<section class="training-clear-gym" aria-label="Wochenplan">${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
+  const stretching=renderStretchModule(gymToday);
+  return `<div class="training-system-clear">${gymToday?gym+surfYearTeaser()+stretching:stretching+gym+surfYearTeaser()}</div>`;
+}
+function renderTrainingModules(p){return window.SWELL_UI_PREVIEW==='organized'?renderTrainingModulesClear(p):renderTrainingModulesLegacy(p)}
 function renderStretchManager(){
   if(view.stretchDraft)return renderStretchPlanEditor();
   const rests=[1,2,3,4,5,6,0].filter(w=>!day(plan(),w)?.ex?.length);

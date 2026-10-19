@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 40.
+Mobile-first workout tracker for personal gym and surf preparation. Version 41.
 
 Version 40 adds the non-destructive **World Trip Surf Performance** program: twelve editable monthly plans with four 72–75 minute sessions on Tuesday, Wednesday, Friday and Saturday, surf-specific power and shoulder-prehab work, progressive running, conservative starting loads, exercise rest targets, monthly benchmarks and an automatic every-fourth-week deload. Existing plans and workout history remain available. The complete rationale and prescription are documented in [`docs/surf-year-plan.md`](docs/surf-year-plan.md).
 
@@ -23,6 +23,9 @@ Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-c
 - Change training days, exercises, weights, reps, and sets.
 - Check off sets automatically by entering weight/reps, or manually for bodyweight movements.
 - Save weight, reps, notes, and completed sets in the calendar for every workout.
+- Keep the planned weekly schedule historically stable by saving the effective plan revision for each date; activating or editing a plan applies from that day forward.
+- Synchronize plans, workouts, food days, readiness days, bodyweight records, plan history, and the active session as individual Firestore documents, while retaining the original `current` document as a migration backup.
+- Undo deleting a workout, exercise, cleared training day, or food entry from the confirmation toast for a short time.
 - Open the app on today and resume an active workout after reopening it.
 - Start today's workout directly from the top of the Training tab.
 - Keep rest days out of the Training landing page and manage plan editing, duplication, activation, and deletion in one dedicated screen.
@@ -48,7 +51,8 @@ Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-c
 - Use the fluid Apple-inspired Glass interface and motion style throughout the app.
 - Float the rounded bottom navigation just above the screen edge and blur the protected area beneath it, so scrolling content cannot reappear below the bar.
 - Use iOS-friendly dropdowns, inputs, sheets, and navigation controls.
-- Swipe from the left screen edge to use the visible in-app back action on iPhone and other touch devices.
+- Swipe from the left screen edge to use the visible in-app back action on iPhone and other touch devices; the page follows the gesture, vertical scrolling cancels it, and the back button remains available.
+- Temporarily compare the existing Training layout with a more clearly grouped version using the Home chooser; the choice lasts only for the current browser session and is never synchronized.
 - Install the app from Safari with a dedicated SWELL home-screen icon and standalone display.
 - Keep the app shell available offline and save workout changes locally until a connection returns.
 - Use the selected Medium layout throughout the app.
