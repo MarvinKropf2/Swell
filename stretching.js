@@ -88,15 +88,16 @@ function renderTrainingModulesClear(p){
   if(view.gymWeekKey!==key){view.gymWeekKey=key;view.gymWeekOpen=gymToday}
   const active=p.id===state.activePlanId;
   const planRow=`<div class="clear-plan-row"><div class="grow"><span class="tiny">${active?'AKTIVER WOCHENPLAN':'GEÖFFNETER WOCHENPLAN'}</span><strong>${esc(p.name)}</strong></div><button class="secondary" data-manage>Verwalten</button></div>`;
+  const programNotice=surfYearSwitchNotice();
   const weeks=`${section('Trainingswoche')}<div class="clear-week-list">${trainingWeekMarkup(p)}</div>`;
   const gym=gymToday
-    ?`<section class="training-clear-gym" aria-label="Wochenplan">${todayTrainingCard()}${pendingTrainingCard()}${planRow}${weeks}</section>`
-    :`<section class="training-clear-gym" aria-label="Wochenplan">${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
+    ?`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${todayTrainingCard()}${pendingTrainingCard()}${planRow}${weeks}</section>`
+    :`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
   const stretching=renderStretchModule(gymToday);
   const trainingTitle='<h1 class="training-section-title">Training</h1>';
   return `<div class="training-system-clear">${gymToday?trainingTitle+gym+stretching:stretching+trainingTitle+gym}</div>`;
 }
-function renderTrainingModules(p){return window.SWELL_UI_PREVIEW==='organized'?renderTrainingModulesClear(p):renderTrainingModulesLegacy(p)}
+function renderTrainingModules(p){return renderTrainingModulesClear(p)}
 function renderStretchManager(){
   if(view.stretchDraft)return renderStretchPlanEditor();
   const rests=[1,2,3,4,5,6,0].filter(w=>!day(plan(),w)?.ex?.length);
