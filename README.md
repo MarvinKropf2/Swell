@@ -1,6 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 39.
+Mobile-first workout tracker for personal gym and surf preparation. Version 40.
+
+Version 40 adds the non-destructive **World Trip Surf Performance** program: twelve editable monthly plans with four 72–75 minute sessions on Tuesday, Wednesday, Friday and Saturday, surf-specific power and shoulder-prehab work, progressive running, conservative starting loads, exercise rest targets, monthly benchmarks and an automatic every-fourth-week deload. Existing plans and workout history remain available. The complete rationale and prescription are documented in [`docs/surf-year-plan.md`](docs/surf-year-plan.md).
 
 Training separates the weekly gym plan and optional stretching into two sections. On rest days stretching comes first and the gym plan starts collapsed; on gym days stretching follows the gym plan. Stretching management supports creating, editing, copying and deleting routines, editing individual guided stretches, and assigning routines to rest weekdays. Routine settings synchronize with the account; saved calendar entries retain their original exercises and instructions.
 
@@ -16,6 +18,8 @@ Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-c
 ## App features
 
 - Create and switch between multiple editable weekly workout plans.
+- Follow a progressive 12-month surf-performance program without replacing existing plans.
+- See planned session duration, exercise blocks, rest periods, starting-load estimates and automatic deload reductions inside the workout logger.
 - Change training days, exercises, weights, reps, and sets.
 - Check off sets automatically by entering weight/reps, or manually for bodyweight movements.
 - Save weight, reps, notes, and completed sets in the calendar for every workout.
