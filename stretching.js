@@ -80,7 +80,8 @@ function renderTrainingModulesLegacy(p){
   if(view.gymWeekKey!==key){view.gymWeekKey=key;view.gymWeekOpen=gymToday}
   const active=p.id===state.activePlanId;
   const gym=`<section class="training-module" aria-label="Wochenplan">${gymToday?header('Training','Wochenplan'):`<button class="week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Wochenplan</strong>${ico('chevron')}</button>`}<div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="${gymToday?'':'training-week-body'}"><button class="secondary full manage-plans-shortcut" data-manage>Wochenpläne verwalten</button>${gymToday?todayTrainingCard():''}<div class="card active-plan-panel"><span class="tiny">${active?'AKTIVER WOCHENPLAN':'GESPEICHERTER WOCHENPLAN'}</span><strong>${esc(p.name)}</strong></div>${section('Trainingswoche')}${trainingWeekMarkup(p)}</div></section>`;
-  return `${pendingTrainingCard()}<div class="training-modules">${gymToday?gym+renderStretchModule(true):renderStretchModule(false)+gym}</div>`;
+  const trainingTitle='<h1 class="training-section-title">Training</h1>';
+  return `${pendingTrainingCard()}<div class="training-modules">${gymToday?trainingTitle+gym+renderStretchModule(true):renderStretchModule(false)+trainingTitle+gym}</div>`;
 }
 function renderTrainingModulesClear(p){
   const gymToday=!!dayForDate(today(),p)?.ex?.length,key=today()+':'+p.id+':'+gymToday;
@@ -92,7 +93,8 @@ function renderTrainingModulesClear(p){
     ?`<section class="training-clear-gym" aria-label="Wochenplan">${todayTrainingCard()}${pendingTrainingCard()}${planRow}${weeks}</section>`
     :`<section class="training-clear-gym" aria-label="Wochenplan">${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
   const stretching=renderStretchModule(gymToday);
-  return `<div class="training-system-clear">${gymToday?gym+stretching:stretching+gym}</div>`;
+  const trainingTitle='<h1 class="training-section-title">Training</h1>';
+  return `<div class="training-system-clear">${gymToday?trainingTitle+gym+stretching:stretching+trainingTitle+gym}</div>`;
 }
 function renderTrainingModules(p){return window.SWELL_UI_PREVIEW==='organized'?renderTrainingModulesClear(p):renderTrainingModulesLegacy(p)}
 function renderStretchManager(){
