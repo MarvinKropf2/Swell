@@ -369,7 +369,7 @@ function mergeRemote(remote,local){
  return primary;
 }
 function refreshCloudView(){render();if(view.settingsOpen)openSettings()}
-function cloudFailureStatus(error){const code=String(error?.code||'').replace(/^firestore\//,'');if(!navigator.onLine)return 'Offline · Lokal gespeichert';if(code==='permission-denied')return 'Datenbankzugriff nicht freigegeben';if(code==='not-found')return 'Firestore-Datenbank nicht gefunden';if(code==='unauthenticated')return 'Anmeldung abgelaufen · erneut anmelden';if(code==='unavailable'||code==='deadline-exceeded')return `Firebase nicht erreichbar (${code}) · Lokal gespeichert`;return `Sync-Fehler (${code||'unbekannt'}) · Lokal gespeichert`}
+function cloudFailureStatus(error){const code=String(error?.code||'').replace(/^firestore\//,''),message=String(error?.message||error?.name||'').replace(/\s+/g,' ').slice(0,100);if(!navigator.onLine)return 'Offline · Lokal gespeichert';if(code==='permission-denied')return 'Datenbankzugriff nicht freigegeben';if(code==='not-found')return 'Firestore-Datenbank nicht gefunden';if(code==='unauthenticated')return 'Anmeldung abgelaufen · erneut anmelden';if(code==='unavailable'||code==='deadline-exceeded')return `Firebase nicht erreichbar (${code}) · Lokal gespeichert`;return `Sync-Fehler · ${code||message||'unbekannt'} · Lokal gespeichert`}
 async function setupCloud(){
  if(!cloud.configured)return;
  try{
@@ -550,7 +550,7 @@ setupCloud=async function setupCloudRecords(){
      if(legacy&&Number(legacy.modifiedAt||0)>Number(remote.legacyStateModifiedAt||0)){const upgraded=normalizeState(mergeRemote(legacy,remote));upgraded.legacyStateModifiedAt=Number(legacy.modifiedAt)||0;next=mergeCloudState(remote,upgraded)}else next=mergeCloudState(remote,state);
      const changed=JSON.stringify(cloudPayload(next))!==JSON.stringify(cloudPayload(state));if(changed){state=normalizeState(next);localSave();view.selectedPlanId=state.activePlanId;clearAutoReadinessIfSynced();refreshCloudView()}queueCloudWrite();
     },error=>{cloud.status=cloudFailureStatus(error);refreshCloudView()});
-   }catch(error){if(cloud.uid!==user.uid)return;cloud.ready=true;cloud.status=cloudFailureStatus(error);refreshCloudView();if(error.code==='permission-denied')toast('Firebase-Datenbankregeln prüfen');maybePromptReadiness()}
+   }catch(error){if(cloud.uid!==user.uid)return;console.error('SWELL Firebase initial sync failed',error);cloud.ready=true;cloud.status=cloudFailureStatus(error);refreshCloudView();if(error.code==='permission-denied')toast('Firebase-Datenbankregeln prüfen');maybePromptReadiness()}
   };
   cloud.reconnect=()=>cloud.auth?.currentUser?connectUser(cloud.auth.currentUser):Promise.resolve();
   auth.onAuthStateChanged(cloud.auth,connectUser);
