@@ -1,6 +1,6 @@
 # SWELL – 12-Monats-Plan „World Trip Surf Performance“
 
-Stand: 19. Oktober 2026. Ausgangsprofil: gesunder Intermediate-Surfer mit Gym-Grunderfahrung, ausbaufähiger Ausdauer und Schwerpunkt auf Pop-up, Paddelkraft, Surfperformance und athletischem Muskelaufbau. Verfügbare Trainingstage: Dienstag, Mittwoch, Freitag und Samstag; maximal etwa 75 Minuten pro Einheit.
+Stand: 20. Oktober 2026. Ausgangsprofil nach Nutzerangaben: rund 1.80 m/80 kg, derzeit unregelmässiges Training, 5 km gerade machbar, etwa 6 saubere Klimmzüge und 30 Liegestütze. Ziel: Ausdauer zuerst, dazu Surfperformance, Kraft- und Muskelaufbau. Trainingstage: Dienstag, Mittwoch, Freitag und Samstag; etwa 75 Minuten pro Einheit.
 
 ## Was aus Forschung und Pro-Beispielen übernommen wurde
 
@@ -20,47 +20,52 @@ Die eigentliche Programmierung stützt sich auf folgende Evidenz:
 - Ein achtwöchiges Core-Programm verbesserte bei Junior-Wettkampfsurfern mehrere Feldtests, darunter Rotation, Sprung, Core-Kraft und Flexibilität. Die Studie beweist keinen direkten Wettkampferfolg, unterstützt aber gezielte Rumpf- und Rotationsarbeit. [Axel et al., 2018](https://pubmed.ncbi.nlm.nih.gov/29997737/)
 - Eine Surf-Schulter-Review empfiehlt Aussenrotatoren, Brustwirbelsäulenextension und Schulterblattkontrolle. Deshalb sind Face Pulls, Aussenrotation und Thorax-Mobility fest eingeplant. [Nathanson et al., 2021](https://pubmed.ncbi.nlm.nih.gov/33409808/)
 - Concurrent Training beeinträchtigt Muskelaufbau und Maximalkraft im Mittel nicht, kann aber Explosivkraft etwas dämpfen, besonders wenn beides in derselben Einheit eng kombiniert wird. Deshalb kommt Power vor Kraft und Cardio ans Ende; das harte Laufvolumen bleibt begrenzt. [Schumann et al., 2022](https://pubmed.ncbi.nlm.nih.gov/34757594/)
-- Die aktuelle ACSM-Zusammenfassung betont regelmässiges Training aller grossen Muskelgruppen mindestens zweimal pro Woche; Muskelversagen ist nicht zwingend. [ACSM, 2026](https://acsm.org/resistance-training-guidelines-update-2026/)
+- Die aktuelle ACSM-Zusammenfassung betont regelmässiges Training und 2–3 Sätze pro Kraftübung; Muskelversagen und komplizierte monatliche Satzsteigerungen sind nicht nötig. [ACSM, 2026](https://acsm.org/resistance-training-guidelines-update-2026/)
 
 ## Wochenstruktur
 
 | Tag | Zeitbudget | Inhalt |
 |---|---:|---|
-| Dienstag | 75 Min. | 6 Min. Warm-up, 5–8 Min. Pop-up-Power, 42–48 Min. Oberkörper/Paddelkraft, 8–12 Min. lockerer Lauf |
-| Mittwoch | 72–75 Min. | 6 Min. Warm-up, 6–10 Min. Sprünge, 45–50 Min. Unterkörper, Core und Pop-up-Skill |
-| Freitag | 75 Min. | 6 Min. Warm-up, 42–48 Min. Zug-/Druckkraft und Schulter-Prehab, 14–18 Min. Intervalle |
-| Samstag | 75 Min. | 6 Min. Warm-up, Power, Ganzkörper-/einbeinige Kraft, Rotation/Carry und 15–30 Min. Zone 2 |
+| Dienstag | 75 Min. | Warm-up, Pop-up-Power, Oberkörper-/Paddelkraft und kurzer Zone-2-Lauf (8–16 Min. je Phase) |
+| Mittwoch | 72–75 Min. | Warm-up, Sprünge, Unterkörperkraft, Core und Pop-up-Technik |
+| Freitag | 75 Min. | Zug-/Druckkraft, Schulter-Prehab und dosierte Laufintervalle |
+| Samstag | 75 Min. | Power, Ganzkörper-/einbeinige Kraft, Rotation/Carry und längerer Zone-2-Lauf (15–30 Min. je Phase) |
 
-Die Supersatz-Markierungen in SWELL sind bewusst so gesetzt, dass die Einheit im Zeitfenster bleibt. B1/B2 oder C1/C2 abwechselnd trainieren, dann die angegebene Pause einhalten. Bei belegtem Gerät darf eine biomechanisch ähnliche Übung ersetzt werden.
+Die Supersatz-Markierungen in SWELL sind bewusst so gesetzt, dass die Einheit im Zeitfenster bleibt. B1/B2 oder C1/C2 abwechselnd trainieren und dann die angegebene Pause einhalten. Bei belegtem Gerät darf eine biomechanisch ähnliche Übung ersetzt werden.
 
 ## Belastungssteuerung
 
-- **RIR:** Monat 1 mit 2–3 Wiederholungen im Tank beginnen. Powerübungen nie bis zur Ermüdung treiben. Nur kleine Isolationsübungen dürfen gelegentlich auf etwa 1 RIR kommen.
-- **Doppelte Progression:** Erst Wiederholungen im vorgegebenen Bereich steigern. Wenn alle Arbeitssätze in zwei Einheiten das obere Ende mit sauberer Technik erreichen, Oberkörper um 2–2.5 kg und Unterkörper um 2.5–5 kg erhöhen. Bei Kurzhanteln ist der Wert pro Hand gemeint.
-- **Startgewichte:** Die in SWELL eingetragenen Werte sind konservative Schätzungen: Bank 32.5 kg, Rudern 30 kg, Kniebeuge/RDL 40 kg, Trap Bar/Hip Thrust 50 kg, Split Squat 8 kg und Schrägbankdrücken 10 kg pro Hand. Im ersten Training korrigieren, bis 2–3 RIR passen.
-- **Klimmzüge:** 3–5 Sätze im Zielbereich. Reichen sechs frische Wiederholungen nicht für alle Sätze, Band oder Assist-Maschine nutzen und die Unterstützung in der Notiz speichern.
-- **Deload:** Woche 4 jedes Monats. SWELL reduziert beim Start automatisch die Kraftsätze auf ungefähr 60 %. Mit 3–4 RIR trainieren, kein Muskelversagen, Cardio etwa 30 % kürzer.
-- **52-Wochen-Struktur:** Nach den Monaten 3, 6, 9 und 12 folgt jeweils eine leichte fünfte Woche für Benchmarks, Krankheit, Reisen oder zusätzliche Erholung. Dadurch umfasst das Programm 52 statt nur 48 Wochen. Auch in diesen Pufferwochen reduziert SWELL die Satzanzahl.
+- **Kraft:** Hauptübungen bleiben bei 3 Arbeitssätzen; im Taper-Monat 12 sind es 2. Zubehör bleibt meist bei 2 Sätzen. So steigt die Last nicht jeden Monat über mehr Sätze, sondern über saubere Wiederholungen und kleine Gewichtsschritte.
+- **RIR:** Monat 1 mit 2–3 Wiederholungen im Tank beginnen. Später meist 1–2 RIR; kein erzwungenes Muskelversagen. Powerübungen stoppen, sobald Tempo, Sprunghöhe oder Landung nachlässt.
+- **Doppelte Progression:** Zuerst Wiederholungen steigern. Wenn in zwei Einheiten alle Arbeitssätze das obere Ende sauber mit 1–2 RIR erreichen, das Gewicht um den kleinsten verfügbaren Schritt erhöhen (Oberkörper meist 1–2 kg, Unterkörper etwa 2.5 kg). Bei Kurzhanteln gilt der Wert pro Hand.
+- **Startgewichte:** Die in SWELL gespeicherten Werte bleiben erhalten und sind Richtwerte: Bank 32.5 kg, Rudern 30 kg, Kniebeuge/RDL 40 kg, Trap Bar/Hip Thrust 50 kg, Split Squat 8 kg und Schrägbankdrücken 10 kg pro Hand. Im ersten Training bei Bedarf so korrigieren, dass die angegebene Reserve bleibt.
+- **Klimmzüge:** Die Monatspläne geben 3–6 Wiederholungen je Satz vor. Band oder Assist-Maschine nutzen, falls sonst die saubere Zielzahl nicht mit 1–2 Wiederholungen Reserve gelingt. Unterstützung in der Notiz festhalten.
+- **Pop-ups und Power:** Erst saubere Wiederholungen und Landungen; ab Monat 7 reaktive Pop-ups, Broad Jumps und Rotationswürfe. Es wird nicht zusätzlich Gewicht erzwungen. Face Pulls und Aussenrotation bleiben leichte Prehab-Arbeit; Farmer Carries wachsen erst von 30 auf 40 m, danach kann das Gewicht im kleinsten Schritt steigen.
+- **Deload:** Woche 4 jedes Monats. SWELL reduziert beim Start automatisch die Kraftsätze um ungefähr 40 %, verlangt 3–4 RIR und kürzt Cardio etwa 30 %. In den Monaten 3, 6, 9 und 12 folgt eine leichte fünfte Puffer-/Benchmarkwoche.
+- **Laufen Zone 2:** Laufband mit 1 % Steigung. Startbereich etwa 5.0–6.0 km/h, aber RPE 3–4/10 und ganze Sätze beim Sprechen haben Vorrang. Die Distanzspanne in SWELL ist eine Orientierung bei 5.0–6.5 km/h; bei Lauf-Geh-Pausen kann sie kleiner sein. Nach jeder Einheit tatsächliche Geschwindigkeit (km/h) und Distanz (km) notieren. Erst die Dauer steigern; Tempo nur um 0.2–0.3 km/h erhöhen, wenn der vorherige Lauf locker bei höchstens RPE 3 war.
+- **Intervalle:** Im ersten schnellen Abschnitt etwa 0.5 km/h schneller als das lockere Lauftempo beginnen, dann in 0.2-km/h-Schritten anpassen. Ziel RPE 6–7, kein Sprint. Schnelle Geschwindigkeit und Gesamtdistanz eintragen; wird das Tempo sichtbar langsamer, Geschwindigkeit reduzieren.
 - **Schmerzregel:** Scharfer Schmerz, zunehmender Gelenkschmerz oder neurologische Symptome sind ein Stoppsignal. Übung abbrechen und bei anhaltenden Beschwerden fachlich abklären lassen.
 
 ## Progression über zwölf Monate
 
-| Monat | Schwerpunkt | Hauptübungen | Zone 2 | Intervalle |
-|---:|---|---|---:|---|
-| 1 | Technik und Rhythmus | 3 × 8–10 | 15 Min. | 6 × 30 s / 60 s gehen |
-| 2 | Volumenbasis | 3 × 8–12 | 18 Min. | 8 × 30 s / 60 s |
-| 3 | Muskel- und Arbeitskapazität | 4 × 6–10 | 22 Min. | 6 × 60 s / 90 s |
-| 4 | Kraft I | 4 × 5–6 | 22 Min. | 8 × 45 s / 75 s |
-| 5 | Kraft II | 4 × 4–6 | 25 Min. | 6 × 75 s / 75 s |
-| 6 | Paddelkraft | 5 × 4 | 25 Min. | 10 × 30 s / 60 s |
-| 7 | Power I | 3 × 4–6 plus Power | 25 Min. | 2 Serien: 5 × 20 s / 40 s |
-| 8 | Power II und Rotation | 4 × 3–5 plus Power | 28 Min. | 8 × 30 s Steigung / 60 s |
-| 9 | Wiederholte Explosivität | 3 × 5 plus Power | 30 Min. | 3 Serien: 4 × 20 s / 40 s |
-| 10 | Surf-Kondition | 3 × 5–8 | 30 Min. | 6 × 60 s / 60 s |
-| 11 | Peak | 3 × 3–5, wenig Ermüdung | 25 Min. | 2 Serien: 5 × 20 s / 40 s |
-| 12 | Taper und Tests | 2 × 4–6 | 20 Min. | 4 × 30 s / 90 s |
+Die langen lockeren Läufe wachsen von Monat 1 bis Monat 9, die kürzeren Läufe unterstützen den Rhythmus. Monate 10–12 senken das Volumen bewusst für Peak und Taper; Monat 12 bleibt mit 22 Minuten/etwa 1.8–2.4 km trotzdem über dem Einstieg in Monat 1. Die Kilometer sind Schätzbereiche bei 5.0–6.5 km/h, kein Tempotest.
 
-Zone 2 entspricht RPE 3–4 von 10 und vollständigen Sätzen beim Sprechen. Die Intervalle sind RPE 8, kein Vollsprint. Bei Schmerzen durch Laufen kann dieselbe Zeit und Belastungsstruktur auf Bike oder Rower ausgeführt werden.
+| Monat | Schwerpunkt | Hauptübungen | Kurzer Lauf Di. | Langer Lauf Sa. | Intervalle |
+|---:|---|---|---:|---:|---|
+| 1 | Technik und Rhythmus | 3 × 8–10 | 8 Min. · 0.7–0.9 km | 15 Min. · 1.3–1.6 km | 6 × 30 s / 60 s gehen |
+| 2 | Basis und Wiederholungen | 3 × 8–12 | 10 Min. · 0.8–1.1 km | 18 Min. · 1.5–1.9 km | 8 × 30 s / 60 s gehen |
+| 3 | Muskel- und Arbeitskapazität | 3 × 8–12 | 12 Min. · 1.0–1.3 km | 20 Min. · 1.7–2.2 km | 6 × 60 s / 90 s locker |
+| 4 | Kraft I | 3 × 6–8 | 12 Min. · 1.0–1.3 km | 22 Min. · 1.8–2.4 km | 8 × 45 s / 75 s locker |
+| 5 | Kraft II | 3 × 5–8 | 14 Min. · 1.2–1.5 km | 24 Min. · 2.0–2.6 km | 6 × 75 s / 75 s locker |
+| 6 | Paddelkraft | 3 × 4–6 | 14 Min. · 1.2–1.5 km | 25 Min. · 2.1–2.7 km | 10 × 30 s / 60 s locker |
+| 7 | Power I | 3 × 5–8 plus Power | 15 Min. · 1.3–1.6 km | 26 Min. · 2.2–2.8 km | 2 Serien: 5 × 20 s / 40 s |
+| 8 | Power II und Rotation | 3 × 5–8 plus Power | 15 Min. · 1.3–1.6 km | 28 Min. · 2.3–3.0 km | 8 × 30 s bei 3 % Steigung / 60 s |
+| 9 | Wiederholte Explosivität | 3 × 6–8 plus Power | 16 Min. · 1.3–1.7 km | 30 Min. · 2.5–3.3 km | 3 Serien: 4 × 20 s / 40 s |
+| 10 | Surf-Kondition | 3 × 6–8 | 14 Min. · 1.2–1.5 km | 30 Min. · 2.5–3.3 km | 6 × 60 s / 60 s locker |
+| 11 | Peak | 3 × 5–8, wenig Ermüdung | 12 Min. · 1.0–1.3 km | 25 Min. · 2.1–2.7 km | 2 Serien: 5 × 20 s / 40 s |
+| 12 | Taper und Tests | 2 × 6–8 | 10 Min. · 0.8–1.1 km | 22 Min. · 1.8–2.4 km | 4 × 30 s / 90 s locker |
+
+Bei Schmerzen durch Laufen kann dieselbe Zeit und Belastungsstruktur auf Bike oder Rower ausgeführt werden. Die eigenen Laufgeschwindigkeiten und Gewichte bleiben beim Aktualisieren der bestehenden SWELL-Pläne erhalten; die Änderung ersetzt nur die Monatsvorgaben und Anleitungen. Eigene Zusatzübungen und Trainingshistorie bleiben bestehen.
 
 ## Monatliche Tests
 
