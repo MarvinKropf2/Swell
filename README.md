@@ -1,6 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 41.
+Mobile-first workout tracker for personal gym and surf preparation. Version 48.
+
+Version 48 implements the approved 12-month surf workout: one weekly leg-strength day, complete upper-body and core coverage, complementary exercise ordering, and separate progressive short-run, long-run and interval exercises for every month. It preserves saved workout history and the completed update-day plan snapshot. See [the v4 training-plan reference](docs/surf-year-plan-v4.md).
 
 Version 40 adds the non-destructive **World Trip Surf Performance** program: twelve editable monthly plans with four 72–75 minute sessions on Tuesday, Wednesday, Friday and Saturday, surf-specific power and shoulder-prehab work, progressive running, conservative starting loads, exercise rest targets, monthly benchmarks and an automatic every-fourth-week deload. Existing plans and workout history remain available. The complete rationale and prescription are documented in [`docs/surf-year-plan.md`](docs/surf-year-plan.md).
 
