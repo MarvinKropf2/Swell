@@ -45,7 +45,7 @@ function exercise(key,n,reps,block=''){
   const o=add[key]||existing.get('surf-year-'+slug(key));
   if(!o)throw Error('Unknown Surf Year v4 exercise: '+key);
   return {...copy(o),id:'surf-year-'+slug(key),sets:Number(n),reps:String(reps).replace(/^(\d+)s$/,'$1 s')+(bothSides.has(key)?' / Seite':''),
-   restSec:heavy.has(key)?120:explosive.has(key)?75:50,timeMin:null,block,
+   restSec:key==='upperWarm'||key==='lowerWarm'?0:heavy.has(key)?120:explosive.has(key)?75:50,timeMin:key==='upperWarm'||key==='lowerWarm'?6:null,block,
    trackWeight:o.trackWeight!==false,kg:o.kg??'',
    howTo:(o.howTo||'')+(o.cat==='Kraft'?' Steigere zunächst Wiederholungen; erst bei sauberer Technik zweimal am oberen Ende das Gewicht leicht erhöhen. 1–2 Wiederholungen Reserve.':'')};
 }
