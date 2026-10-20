@@ -35,38 +35,37 @@ Die Supersatz-Markierungen in SWELL sind bewusst so gesetzt, dass die Einheit im
 
 ## Belastungssteuerung
 
-- **Kraft:** Hauptübungen bleiben bei 3 Arbeitssätzen; im Taper-Monat 12 sind es 2. Zubehör bleibt meist bei 2 Sätzen. So steigt die Last nicht jeden Monat über mehr Sätze, sondern über saubere Wiederholungen und kleine Gewichtsschritte.
+- **Kraft:** Hauptübungen bleiben bei 3 Arbeitssätzen; in Monat 12 sind es 2. Zubehör bleibt meist bei 2 Sätzen. Die Progression läuft zuerst über Wiederholungen, nicht über jeden Monat mehr Sätze.
 - **RIR:** Monat 1 mit 2–3 Wiederholungen im Tank beginnen. Später meist 1–2 RIR; kein erzwungenes Muskelversagen. Powerübungen stoppen, sobald Tempo, Sprunghöhe oder Landung nachlässt.
-- **Doppelte Progression:** Zuerst Wiederholungen steigern. Wenn in zwei Einheiten alle Arbeitssätze das obere Ende sauber mit 1–2 RIR erreichen, das Gewicht um den kleinsten verfügbaren Schritt erhöhen (Oberkörper meist 1–2 kg, Unterkörper etwa 2.5 kg). Bei Kurzhanteln gilt der Wert pro Hand.
-- **Startgewichte:** Die in SWELL gespeicherten Werte bleiben erhalten und sind Richtwerte: Bank 32.5 kg, Rudern 30 kg, Kniebeuge/RDL 40 kg, Trap Bar/Hip Thrust 50 kg, Split Squat 8 kg und Schrägbankdrücken 10 kg pro Hand. Im ersten Training bei Bedarf so korrigieren, dass die angegebene Reserve bleibt.
-- **Klimmzüge:** Die Monatspläne geben 3–6 Wiederholungen je Satz vor. Band oder Assist-Maschine nutzen, falls sonst die saubere Zielzahl nicht mit 1–2 Wiederholungen Reserve gelingt. Unterstützung in der Notiz festhalten.
-- **Pop-ups und Power:** Erst saubere Wiederholungen und Landungen; ab Monat 7 reaktive Pop-ups, Broad Jumps und Rotationswürfe. Es wird nicht zusätzlich Gewicht erzwungen. Face Pulls und Aussenrotation bleiben leichte Prehab-Arbeit; Farmer Carries wachsen erst von 30 auf 40 m, danach kann das Gewicht im kleinsten Schritt steigen.
+- **Doppelte Progression:** Wenn in zwei Einheiten alle Arbeitssätze das obere Ende sauber mit 1–2 RIR erreichen, Gewicht im kleinsten verfügbaren Schritt erhöhen (Oberkörper meist 1–2 kg, Unterkörper etwa 2.5 kg). Bei Kurzhanteln gilt der Wert pro Hand.
+- **Startgewichte:** Die gespeicherten Richtwerte bleiben erhalten: Bank 32.5 kg, Rudern 30 kg, Kniebeuge/RDL 40 kg, Trap Bar/Hip Thrust 50 kg, Split Squat 8 kg und Schrägbankdrücken 10 kg pro Hand. Bei Bedarf im ersten Training so korrigieren, dass die angegebene Reserve bleibt.
+- **Klimmzüge:** 3–6 Wiederholungen je Satz. Band oder Assist-Maschine nutzen, falls die Zielzahl sonst nicht mit 1–2 Wiederholungen Reserve gelingt. Hilfe erst reduzieren, wenn alle Sätze zweimal am oberen Ende sauber gelingen.
+- **Pop-ups und Power:** Erst saubere Wiederholungen und Landungen; ab Monat 7 reaktive Pop-ups, Broad Jumps und Rotationswürfe. Face Pulls und Aussenrotation bleiben leichte Prehab-Arbeit. Farmer Carries steigern zuerst die Strecke von 30 auf 40 m, danach allenfalls das Gewicht.
 - **Deload:** Woche 4 jedes Monats. SWELL reduziert beim Start automatisch die Kraftsätze um ungefähr 40 %, verlangt 3–4 RIR und kürzt Cardio etwa 30 %. In den Monaten 3, 6, 9 und 12 folgt eine leichte fünfte Puffer-/Benchmarkwoche.
-- **Laufen Zone 2:** Laufband mit 1 % Steigung. Startbereich etwa 5.0–6.0 km/h, aber RPE 3–4/10 und ganze Sätze beim Sprechen haben Vorrang. Die Distanzspanne in SWELL ist eine Orientierung bei 5.0–6.5 km/h; bei Lauf-Geh-Pausen kann sie kleiner sein. Nach jeder Einheit tatsächliche Geschwindigkeit (km/h) und Distanz (km) notieren. Erst die Dauer steigern; Tempo nur um 0.2–0.3 km/h erhöhen, wenn der vorherige Lauf locker bei höchstens RPE 3 war.
-- **Intervalle:** Im ersten schnellen Abschnitt etwa 0.5 km/h schneller als das lockere Lauftempo beginnen, dann in 0.2-km/h-Schritten anpassen. Ziel RPE 6–7, kein Sprint. Schnelle Geschwindigkeit und Gesamtdistanz eintragen; wird das Tempo sichtbar langsamer, Geschwindigkeit reduzieren.
+- **Joggen Zone 2:** Die Monatsziele stehen direkt an der Laufübung: Dauer, Tempo, Steigung und berechnete Strecke. Startwerte sind bewusst moderat. Locker bei RPE 3–4/10 laufen, sodass ganze Sätze beim Sprechen möglich sind. Wenn das nicht geht, 0.3–0.5 km/h reduzieren oder 3 Min. laufen / 1 Min. gehen. Ein Monatsziel erst steigern, wenn du es in zwei Läufen locker geschafft hast; sonst den Wert wiederholen. Nachher tatsächliches Tempo und Strecke notieren.
+- **Laufintervalle:** Auch hier stehen Zieltempo und Steigung pro Monat bei der Übung. Fünf Minuten ein- und auslaufen, schnelle Abschnitte bei RPE 6–7/10, kein Sprint. Erholung bei 4.5 km/h und 1 % Steigung oder langsamer gehen. Wenn das Tempo nicht gleichmässig bleibt, 0.3–0.5 km/h senken und den Monatswert wiederholen.
 - **Schmerzregel:** Scharfer Schmerz, zunehmender Gelenkschmerz oder neurologische Symptome sind ein Stoppsignal. Übung abbrechen und bei anhaltenden Beschwerden fachlich abklären lassen.
 
 ## Progression über zwölf Monate
 
-Die langen lockeren Läufe wachsen von Monat 1 bis Monat 9, die kürzeren Läufe unterstützen den Rhythmus. Monate 10–12 senken das Volumen bewusst für Peak und Taper; Monat 12 bleibt mit 22 Minuten/etwa 1.8–2.4 km trotzdem über dem Einstieg in Monat 1. Die Kilometer sind Schätzbereiche bei 5.0–6.5 km/h, kein Tempotest.
+Die Vorgaben sind konkrete Laufband-Ziele. Die Distanz wird aus Laufzeit und Zieltempo berechnet und auf 0.1 km gerundet. Tempo und Steigung steigen in kleinen Stufen bis zum Aufbau-Peak in Monat 9; Monate 10–12 senken das Volumen für Peak/Taper. Monat 12 bleibt beim längeren Lauf mit 22 Min., 6.4 km/h und ca. 2.3 km über Monat 1 mit 15 Min. und ca. 1.5 km. Wenn ein Monatsziel zu hart ist, denselben Zielwert wiederholen, bis er locker gelingt.
 
-| Monat | Schwerpunkt | Hauptübungen | Kurzer Lauf Di. | Langer Lauf Sa. | Intervalle |
-|---:|---|---|---:|---:|---|
-| 1 | Technik und Rhythmus | 3 × 8–10 | 8 Min. · 0.7–0.9 km | 15 Min. · 1.3–1.6 km | 6 × 30 s / 60 s gehen |
-| 2 | Basis und Wiederholungen | 3 × 8–12 | 10 Min. · 0.8–1.1 km | 18 Min. · 1.5–1.9 km | 8 × 30 s / 60 s gehen |
-| 3 | Muskel- und Arbeitskapazität | 3 × 8–12 | 12 Min. · 1.0–1.3 km | 20 Min. · 1.7–2.2 km | 6 × 60 s / 90 s locker |
-| 4 | Kraft I | 3 × 6–8 | 12 Min. · 1.0–1.3 km | 22 Min. · 1.8–2.4 km | 8 × 45 s / 75 s locker |
-| 5 | Kraft II | 3 × 5–8 | 14 Min. · 1.2–1.5 km | 24 Min. · 2.0–2.6 km | 6 × 75 s / 75 s locker |
-| 6 | Paddelkraft | 3 × 4–6 | 14 Min. · 1.2–1.5 km | 25 Min. · 2.1–2.7 km | 10 × 30 s / 60 s locker |
-| 7 | Power I | 3 × 5–8 plus Power | 15 Min. · 1.3–1.6 km | 26 Min. · 2.2–2.8 km | 2 Serien: 5 × 20 s / 40 s |
-| 8 | Power II und Rotation | 3 × 5–8 plus Power | 15 Min. · 1.3–1.6 km | 28 Min. · 2.3–3.0 km | 8 × 30 s bei 3 % Steigung / 60 s |
-| 9 | Wiederholte Explosivität | 3 × 6–8 plus Power | 16 Min. · 1.3–1.7 km | 30 Min. · 2.5–3.3 km | 3 Serien: 4 × 20 s / 40 s |
-| 10 | Surf-Kondition | 3 × 6–8 | 14 Min. · 1.2–1.5 km | 30 Min. · 2.5–3.3 km | 6 × 60 s / 60 s locker |
-| 11 | Peak | 3 × 5–8, wenig Ermüdung | 12 Min. · 1.0–1.3 km | 25 Min. · 2.1–2.7 km | 2 Serien: 5 × 20 s / 40 s |
-| 12 | Taper und Tests | 2 × 6–8 | 10 Min. · 0.8–1.1 km | 22 Min. · 1.8–2.4 km | 4 × 30 s / 90 s locker |
+| Monat | Kraft-Hauptsatz | Kurzer Lauf Di. | Langer Lauf Sa. | Intervalle Fr. (schnelle Abschnitte) |
+|---:|---|---|---|---|
+| 1 | 3 × 8–10 | 8 Min. · 6.0 km/h · 1 % · 0.8 km | 15 Min. · 6.0 km/h · 1 % · 1.5 km | 6 × 30 s / 60 s gehen · 6.5 km/h · 1 % |
+| 2 | 3 × 8–12 | 10 Min. · 6.0 km/h · 1 % · 1.0 km | 18 Min. · 6.0 km/h · 1 % · 1.8 km | 8 × 30 s / 60 s gehen · 6.5 km/h · 1 % |
+| 3 | 3 × 8–12 | 12 Min. · 6.1 km/h · 1 % · 1.2 km | 20 Min. · 6.1 km/h · 1 % · 2.0 km | 6 × 60 s / 90 s locker · 6.6 km/h · 1 % |
+| 4 | 3 × 6–8 | 12 Min. · 6.1 km/h · 1 % · 1.2 km | 22 Min. · 6.1 km/h · 1 % · 2.2 km | 8 × 45 s / 75 s locker · 6.6 km/h · 1.5 % |
+| 5 | 3 × 5–8 | 14 Min. · 6.2 km/h · 1 % · 1.4 km | 24 Min. · 6.2 km/h · 1 % · 2.5 km | 6 × 75 s / 75 s locker · 6.7 km/h · 1.5 % |
+| 6 | 3 × 4–6 | 14 Min. · 6.2 km/h · 1 % · 1.4 km | 25 Min. · 6.2 km/h · 1 % · 2.6 km | 10 × 30 s / 60 s locker · 6.7 km/h · 2 % |
+| 7 | 3 × 5–8 | 15 Min. · 6.2 km/h · 1.5 % · 1.6 km | 26 Min. · 6.2 km/h · 1.5 % · 2.7 km | 2 Serien: 5 × 20 s / 40 s · 7.0 km/h · 2 % |
+| 8 | 3 × 5–8 | 15 Min. · 6.3 km/h · 1.5 % · 1.6 km | 28 Min. · 6.3 km/h · 1.5 % · 2.9 km | 8 × 30 s / 60 s locker · 7.0 km/h · 3 % |
+| 9 | 3 × 6–8 | 16 Min. · 6.3 km/h · 1.5 % · 1.7 km | 30 Min. · 6.3 km/h · 1.5 % · 3.2 km | 3 Serien: 4 × 20 s / 40 s · 7.2 km/h · 3 % |
+| 10 | 3 × 6–8 | 14 Min. · 6.4 km/h · 1 % · 1.5 km | 30 Min. · 6.4 km/h · 1 % · 3.2 km | 6 × 60 s / 60 s locker · 7.2 km/h · 2 % |
+| 11 | 3 × 5–8 | 12 Min. · 6.4 km/h · 1 % · 1.3 km | 25 Min. · 6.4 km/h · 1 % · 2.7 km | 2 Serien: 5 × 20 s / 40 s · 7.0 km/h · 1 % |
+| 12 | 2 × 6–8 | 10 Min. · 6.4 km/h · 1 % · 1.1 km | 22 Min. · 6.4 km/h · 1 % · 2.3 km | 4 × 30 s / 90 s locker · 6.8 km/h · 1 % |
 
-Bei Schmerzen durch Laufen kann dieselbe Zeit und Belastungsstruktur auf Bike oder Rower ausgeführt werden. Die eigenen Laufgeschwindigkeiten und Gewichte bleiben beim Aktualisieren der bestehenden SWELL-Pläne erhalten; die Änderung ersetzt nur die Monatsvorgaben und Anleitungen. Eigene Zusatzübungen und Trainingshistorie bleiben bestehen.
-
+Bei Schmerzen durch Laufen kann dieselbe Zeitstruktur auf Bike oder Rower ausgeführt werden. Eigene Laufgeschwindigkeiten und Gewichte bleiben beim Aktualisieren der bestehenden SWELL-Pläne erhalten; die Änderung ersetzt die Monatsvorgaben und Anleitungen. Eigene Zusatzübungen und Trainingshistorie bleiben bestehen.
 ## Monatliche Tests
 
 - Woche 1 von Monat 1: Körpergewicht und Taillenumfang, 5-km-Zeit ohne All-out-Finish, maximale saubere Klimmzüge und Video von zehn einzelnen Pop-ups aus Seiten- und Frontansicht.

@@ -1,5 +1,5 @@
-const CACHE='swell-v46.0';
-const SHELL=['/','/index.html','/firebase-config.js','/surf-year-plan.js?v=45.0','/stretching.js?v=44.0','/stretching.css?v=44.0','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
+const CACHE='swell-v47.0';
+const SHELL=['/','/index.html','/firebase-config.js','/surf-year-plan.js?v=46.0','/stretching.js?v=44.0','/stretching.css?v=44.0','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));

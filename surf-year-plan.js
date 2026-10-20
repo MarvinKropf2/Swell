@@ -2,7 +2,7 @@
   'use strict';
 
   const PROGRAM_ID='surf-world-trip-12m';
-  const PROGRAM_REVISION=2;
+  const PROGRAM_REVISION=3;
   const dayNames=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
   const localIso=date=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
   const slug=value=>String(value).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -38,29 +38,32 @@
     pallof:{name:'Pallof Press',cat:'Core',media:'pallof',trackWeight:false,howTo:'Seitlich zum Kabel stehen, Griff vor der Brust. Arme ausstrecken, ohne dass Rumpf oder Becken rotieren. Pro Seite arbeiten und die Spannung ruhig halten.'},
     deadbug:{name:'Dead Bug mit Bandzug',cat:'Core',media:'custom',trackWeight:false,howTo:'Unteren Rücken sanft am Boden halten. Gegen einen leichten Bandzug diagonal Arm und Bein strecken; ausatmen und ohne Hohlkreuz zurückkehren.'},
     carry:{name:'Farmer Carry (pro Hand)',cat:'Core',media:'custom',howTo:'Aufrecht gehen, Rippen über Becken, Schulterblätter stabil. Kurze kontrollierte Schritte; Gewicht absetzen, bevor die Haltung zerfällt. Zuerst 3 × 30 m sauber gehen, dann schrittweise bis 40 m verlängern. Gewicht erst danach im kleinsten Schritt erhöhen.'},
-    runEasy:{name:'Laufband Zone 2',cat:'Ausdauer',media:'custom',trackWeight:false,howTo:'Laufband mit 1 % Steigung. Startbereich etwa 5.0–6.0 km/h; passe in 0.2–0.5-km/h-Schritten so an, dass RPE 3–4/10 und ganze Sätze beim Sprechen möglich sind. Bei Bedarf 3 Min. laufen / 1 Min. zügig gehen. Die angezeigte km-Spanne ist eine Orientierung bei 5.0–6.5 km/h. Nach jedem Lauf tatsächliche Geschwindigkeit (km/h) und Distanz (km) notieren. Erst die Dauer steigern; Tempo nur um 0.2–0.3 km/h erhöhen, wenn der letzte Lauf locker bei höchstens RPE 3 war.'},
-    intervals:{name:'Laufband Intervalle',cat:'Ausdauer',media:'custom',trackWeight:false,howTo:'Mit 5 Min. lockerem Gehen/Laufen beginnen und am Schluss 5 Min. auslaufen. Im ersten schnellen Abschnitt als Startwert etwa 0.5 km/h über dem lockeren Lauftempo wählen; bei Bedarf pro Wiederholung in 0.2-km/h-Schritten anpassen. Ziel: RPE 6–7/10, gleichmässige Abschnitte, kein Sprint. Erholung zügig gehen (etwa 4–5 km/h oder langsamer, falls nötig). Schnelle Geschwindigkeit (km/h) und Gesamtdistanz (km) nach dem Training notieren; wenn die letzte Wiederholung deutlich langsamer wird, Tempo senken.'},
+    runEasy:{name:'Laufband Zone 2',cat:'Ausdauer',media:'custom',trackWeight:false,howTo:'Halte dich an die Zielwerte, die bei diesem Lauf für deinen Monat stehen: Dauer, km/h, Steigung und Kilometer. Das Tempo ist locker (RPE 3–4/10), sodass du ganze Sätze sprechen kannst. Wenn das bei der Vorgabe nicht geht, Geschwindigkeit um 0.3–0.5 km/h senken oder 3 Min. laufen / 1 Min. gehen. Den Monatswert erst steigern, wenn du ihn in zwei Läufen locker geschafft hast. Tatsächliche Geschwindigkeit und Distanz nachher notieren.'},
+    intervals:{name:'Laufband Intervalle',cat:'Ausdauer',media:'custom',trackWeight:false,howTo:'Die genauen km/h und die Steigung für die schnellen Abschnitte stehen im Monatsziel dieser Einheit. 5 Min. locker einlaufen, dann die angegebenen Intervalle und am Schluss 5 Min. auslaufen. Erholung: 4.5 km/h gehen bei 1 % Steigung. Ziel RPE 6–7/10, kein Sprint. Wenn du die Vorgabe nicht gleichmässig schaffst, Tempo um 0.3–0.5 km/h senken und den Monatswert erst nach zwei gelungenen Einheiten steigern. Tatsächliches Tempo und Gesamtdistanz notieren.'},
     bike:{name:'Bike Recovery',cat:'Ausdauer',media:'custom',trackWeight:false,howTo:'Sehr locker bei RPE 2–3 treten. Nur zur aktiven Erholung; keine zusätzliche harte Einheit daraus machen.'},
     thoracic:{name:'Surf-Mobility Flow',cat:'Mobility',media:'mobility',trackWeight:false,howTo:'Je 45 Sek.: Sprunggelenk-Rocks, 90/90-Hüftwechsel, tiefer Squat Hold, Open Book, Lat-Stretch und Schulter-Aussenrotation mit Band. Ruhig und schmerzfrei.'}
   };
 
   const configs=[
-    {month:1,phase:'Basis I',focus:'Technik, Trainingsrhythmus und aerobe Basis',main:[3,'8–10',120],assist:[2,'10–12',60],pull:'3–4',easy:15,shortEasy:8,interval:'6 × 30 s zügig / 60 s gehen',intervalMin:19,power:[3,'3'],popup:[2,'3 sauber'],skillPopup:[2,'4 sauber'],test:'Startwerte: 5-km-Zeit, saubere Klimmzüge und 10 einzelne Pop-ups dokumentieren.'},
-    {month:2,phase:'Basis II',focus:'Mehr saubere Wiederholungen und längere ruhige Läufe',main:[3,'8–12',120],assist:[2,'10–12',60],pull:'3–5',easy:18,shortEasy:10,interval:'8 × 30 s zügig / 60 s gehen',intervalMin:22,power:[3,'3'],popup:[2,'4 sauber'],skillPopup:[2,'5 sauber'],test:'Bei Kraftübungen Wiederholungen steigern; Last noch nicht erzwingen.'},
-    {month:3,phase:'Kapazität',focus:'Muskelaufbau und Grundlagenausdauer festigen',main:[3,'8–12',120],assist:[2,'10–12',60],pull:'4–5',easy:20,shortEasy:12,interval:'6 × 60 s zügig / 90 s locker',intervalMin:25,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'4 sauber'],test:'Klimmzüge und kontrollierte Pop-up-Zeit erneut prüfen.'},
-    {month:4,phase:'Kraft I',focus:'Kraft aufbauen, Ausdauer weiterentwickeln',main:[3,'6–8',150],assist:[2,'8–12',75],pull:'3–5',easy:22,shortEasy:12,interval:'8 × 45 s zügig / 75 s locker',intervalMin:26,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'4 sauber'],test:'Lasten nur nach zwei sauberen Einheiten am oberen Wiederholungsende erhöhen.'},
-    {month:5,phase:'Kraft II',focus:'Kraft festigen und Ausdauer erhalten',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'3–5',easy:24,shortEasy:14,interval:'6 × 75 s zügig / 75 s locker',intervalMin:25,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'5 sauber'],test:'Ziel: mehr saubere Klimmzüge oder weniger Assistenz als in Monat 1.'},
-    {month:6,phase:'Paddelkraft',focus:'Kraft halten und wiederholte Zugleistung verbessern',main:[3,'4–6',180],assist:[2,'8–12',75],pull:'3–5',easy:25,shortEasy:14,interval:'10 × 30 s zügig / 60 s locker',intervalMin:25,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'5 sauber'],test:'5-km-Kontrolllauf gleichmässig; kein All-out-Test in der Deload-Woche.'},
-    {month:7,phase:'Power I',focus:'Kraft schnell einsetzen und stabil landen',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'4–6',easy:26,shortEasy:15,interval:'2 Serien: 5 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:23,power:[3,'3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Sprungweite und fünf perfekte Pop-ups dokumentieren.'},
-    {month:8,phase:'Power II',focus:'Rotation, einbeinige Stabilität und Explosivität',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'4–6',easy:28,shortEasy:15,interval:'8 × 30 s bei 3 % Steigung / 60 s locker',intervalMin:22,power:[3,'3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Power-Sätze beenden, sobald Geschwindigkeit oder Landung sichtbar nachlässt.'},
-    {month:9,phase:'Repeated Power',focus:'Explosive Aktionen trotz wiederholter Belastung',main:[3,'6–8',135],assist:[2,'8–12',75],pull:'4–6',easy:30,shortEasy:16,interval:'3 Serien: 4 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:28,power:[4,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Intervalltempo gleichmässig halten; kein schneller Abschluss auf Kosten der Form.'},
-    {month:10,phase:'Surf-Kondition',focus:'Kraft, Pop-ups und Cardio verbinden',main:[3,'6–8',135],assist:[2,'8–12',60],pull:'4–6',easy:30,shortEasy:14,interval:'6 × 60 s zügig / 60 s locker',intervalMin:22,power:[4,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Bei gleicher Geschwindigkeit niedrigere RPE anstreben; Tempo nicht erzwingen.'},
-    {month:11,phase:'Peak',focus:'Hohe Qualität und wenig Ermüdung',main:[3,'5–8',150],assist:[2,'8–10',75],pull:'3–5',easy:25,shortEasy:12,interval:'2 Serien: 5 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:23,power:[3,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Keine Grind-Reps. Schnell, frisch und technisch präzise trainieren.'},
-    {month:12,phase:'Taper & Test',focus:'Ermüdung abbauen und Reise-Readiness prüfen',main:[2,'6–8',150],assist:[2,'8–10',60],pull:'3–5',easy:22,shortEasy:10,interval:'4 × 30 s zügig / 90 s locker',intervalMin:18,power:[2,'2'],popup:[2,'2 reaktiv'],skillPopup:[2,'3 sauber'],test:'Woche 3: 5-km-Zeit, Klimmzüge und 10 Pop-ups testen. Woche 4 sehr leicht.'}
+    {month:1,phase:'Basis I',focus:'Technik, Trainingsrhythmus und aerobe Basis',main:[3,'8–10',120],assist:[2,'10–12',60],pull:'3–4',easy:15,shortEasy:8,easySpeed:6.0,shortSpeed:6.0,easyIncline:1,shortIncline:1,interval:'6 × 30 s zügig / 60 s gehen',intervalMin:19,intervalSpeed:6.5,intervalIncline:1,power:[3,'3'],popup:[2,'3 sauber'],skillPopup:[2,'4 sauber'],test:'Startwerte: 5-km-Zeit, saubere Klimmzüge und 10 einzelne Pop-ups dokumentieren.'},
+    {month:2,phase:'Basis II',focus:'Mehr saubere Wiederholungen und längere ruhige Läufe',main:[3,'8–12',120],assist:[2,'10–12',60],pull:'3–5',easy:18,shortEasy:10,easySpeed:6.0,shortSpeed:6.0,easyIncline:1,shortIncline:1,interval:'8 × 30 s zügig / 60 s gehen',intervalMin:22,intervalSpeed:6.5,intervalIncline:1,power:[3,'3'],popup:[2,'4 sauber'],skillPopup:[2,'5 sauber'],test:'Bei Kraftübungen Wiederholungen steigern; Last noch nicht erzwingen.'},
+    {month:3,phase:'Kapazität',focus:'Muskelaufbau und Grundlagenausdauer festigen',main:[3,'8–12',120],assist:[2,'10–12',60],pull:'4–5',easy:20,shortEasy:12,easySpeed:6.1,shortSpeed:6.1,easyIncline:1,shortIncline:1,interval:'6 × 60 s zügig / 90 s locker',intervalMin:25,intervalSpeed:6.6,intervalIncline:1,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'4 sauber'],test:'Klimmzüge und kontrollierte Pop-up-Zeit erneut prüfen.'},
+    {month:4,phase:'Kraft I',focus:'Kraft aufbauen, Ausdauer weiterentwickeln',main:[3,'6–8',150],assist:[2,'8–12',75],pull:'3–5',easy:22,shortEasy:12,easySpeed:6.1,shortSpeed:6.1,easyIncline:1,shortIncline:1,interval:'8 × 45 s zügig / 75 s locker',intervalMin:26,intervalSpeed:6.6,intervalIncline:1.5,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'4 sauber'],test:'Lasten nur nach zwei sauberen Einheiten am oberen Wiederholungsende erhöhen.'},
+    {month:5,phase:'Kraft II',focus:'Kraft festigen und Ausdauer erhalten',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'3–5',easy:24,shortEasy:14,easySpeed:6.2,shortSpeed:6.2,easyIncline:1,shortIncline:1,interval:'6 × 75 s zügig / 75 s locker',intervalMin:25,intervalSpeed:6.7,intervalIncline:1.5,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'5 sauber'],test:'Ziel: mehr saubere Klimmzüge oder weniger Assistenz als in Monat 1.'},
+    {month:6,phase:'Paddelkraft',focus:'Kraft halten und wiederholte Zugleistung verbessern',main:[3,'4–6',180],assist:[2,'8–12',75],pull:'3–5',easy:25,shortEasy:14,easySpeed:6.2,shortSpeed:6.2,easyIncline:1,shortIncline:1,interval:'10 × 30 s zügig / 60 s locker',intervalMin:25,intervalSpeed:6.7,intervalIncline:2,power:[3,'3'],popup:[3,'4 sauber'],skillPopup:[3,'5 sauber'],test:'5-km-Kontrolllauf gleichmässig; kein All-out-Test in der Deload-Woche.'},
+    {month:7,phase:'Power I',focus:'Kraft schnell einsetzen und stabil landen',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'4–6',easy:26,shortEasy:15,easySpeed:6.2,shortSpeed:6.2,easyIncline:1.5,shortIncline:1.5,interval:'2 Serien: 5 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:23,intervalSpeed:7.0,intervalIncline:2,power:[3,'3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Sprungweite und fünf perfekte Pop-ups dokumentieren.'},
+    {month:8,phase:'Power II',focus:'Rotation, einbeinige Stabilität und Explosivität',main:[3,'5–8',150],assist:[2,'8–12',75],pull:'4–6',easy:28,shortEasy:15,easySpeed:6.3,shortSpeed:6.3,easyIncline:1.5,shortIncline:1.5,interval:'8 × 30 s zügig / 60 s locker',intervalMin:22,intervalSpeed:7.0,intervalIncline:3,power:[3,'3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Power-Sätze beenden, sobald Geschwindigkeit oder Landung sichtbar nachlässt.'},
+    {month:9,phase:'Repeated Power',focus:'Explosive Aktionen trotz wiederholter Belastung',main:[3,'6–8',135],assist:[2,'8–12',75],pull:'4–6',easy:30,shortEasy:16,easySpeed:6.3,shortSpeed:6.3,easyIncline:1.5,shortIncline:1.5,interval:'3 Serien: 4 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:28,intervalSpeed:7.2,intervalIncline:3,power:[4,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Intervalltempo gleichmässig halten; kein schneller Abschluss auf Kosten der Form.'},
+    {month:10,phase:'Surf-Kondition',focus:'Kraft, Pop-ups und Cardio verbinden',main:[3,'6–8',135],assist:[2,'8–12',60],pull:'4–6',easy:30,shortEasy:14,easySpeed:6.4,shortSpeed:6.4,easyIncline:1,shortIncline:1,interval:'6 × 60 s zügig / 60 s locker',intervalMin:22,intervalSpeed:7.2,intervalIncline:2,power:[4,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Bei gleicher Geschwindigkeit niedrigere RPE anstreben; Tempo nicht erzwingen.'},
+    {month:11,phase:'Peak',focus:'Hohe Qualität und wenig Ermüdung',main:[3,'5–8',150],assist:[2,'8–10',75],pull:'3–5',easy:25,shortEasy:12,easySpeed:6.4,shortSpeed:6.4,easyIncline:1,shortIncline:1,interval:'2 Serien: 5 × 20 s zügig / 40 s locker; 3 Min. Serienpause',intervalMin:23,intervalSpeed:7.0,intervalIncline:1,power:[3,'2–3'],popup:[3,'3 reaktiv'],skillPopup:[3,'3 schnell'],test:'Keine Grind-Reps. Schnell, frisch und technisch präzise trainieren.'},
+    {month:12,phase:'Taper & Test',focus:'Ermüdung abbauen und Reise-Readiness prüfen',main:[2,'6–8',150],assist:[2,'8–10',60],pull:'3–5',easy:22,shortEasy:10,easySpeed:6.4,shortSpeed:6.4,easyIncline:1,shortIncline:1,interval:'4 × 30 s zügig / 90 s locker',intervalMin:18,intervalSpeed:6.8,intervalIncline:1,power:[2,'2'],popup:[2,'2 reaktiv'],skillPopup:[2,'3 sauber'],test:'Woche 3: 5-km-Zeit, Klimmzüge und 10 Pop-ups testen. Woche 4 sehr leicht.'}
   ];
 
-  const runKmRange=minutes=>`${(minutes*5/60).toFixed(1)}–${(minutes*6.5/60).toFixed(1)} km`;
-  const easyRunLabel=minutes=>`${minutes} Min. · ca. ${runKmRange(minutes)}`;
+  const runKm=(minutes,speed)=>(Math.round(minutes*speed/60*10)/10).toFixed(1);
+  const pct=value=>Number.isInteger(value)?String(value):Number(value).toFixed(1);
+  const easyRunLabel=(minutes,speed,incline)=>`${minutes} Min. · ${speed.toFixed(1)} km/h · ${pct(incline)} % Steigung · ca. ${runKm(minutes,speed)} km`;
+  const easyRunHowTo=(minutes,speed,incline)=>`Monatsziel: ${minutes} Min. bei ${speed.toFixed(1)} km/h und ${pct(incline)} % Steigung (ca. ${runKm(minutes,speed)} km). Locker bei RPE 3–4/10 laufen. Wenn du keine ganzen Sätze sprechen kannst, 0.3–0.5 km/h langsamer stellen oder 3 Min. laufen / 1 Min. gehen. Den Zielwert erst steigern, wenn du ihn in zwei Läufen locker geschafft hast; sonst denselben Monatswert wiederholen. Tatsächliche Geschwindigkeit und Strecke nach dem Lauf notieren.`;
+  const intervalHowTo=cfg=>`Monatsziel für die schnellen Abschnitte: ${cfg.intervalSpeed.toFixed(1)} km/h bei ${pct(cfg.intervalIncline)} % Steigung. Erholung 4.5 km/h bei 1 % oder langsamer gehen. 5 Min. einlaufen und 5 Min. auslaufen. Ziel RPE 6–7/10, kein Sprint. Wenn du das Tempo nicht gleichmässig halten kannst, 0.3–0.5 km/h reduzieren und den Monatswert erst nach zwei gelungenen Einheiten steigern. Tatsächliches Tempo und Gesamtdistanz notieren.`;
 
   function makeExercise(key,sets,reps,options={}){
     const base=exerciseLibrary[key],cat=base.cat||'Kraft';
@@ -76,7 +79,7 @@
     return {
       id:`surf-year-${slug(key)}`,name:base.name,sets,reps,media:base.media||'custom',cat,
       kg:options.kg??kgByExercise[options.weightKey||key]??'',trackWeight:options.trackWeight??base.trackWeight??true,
-      restSec:options.restSec??60,timeMin:options.timeMin??null,block:options.block||'',howTo:[options.howTo||base.howTo||'',finalGuidance].filter(Boolean).join(' ')
+      restSec:options.restSec??60,timeMin:options.timeMin??null,block:options.block||'',howTo:[base.howTo||'',options.howToExtra||'',finalGuidance].filter(Boolean).join(' ')
     };
   }
 
@@ -91,7 +94,7 @@
       makeExercise('pullup',mainSets,cfg.pull,{restSec:mainRest,block:'B2 · Hauptsatz'}),
       makeExercise('row',assistSets,assistReps,{restSec:assistRest,block:'C1 · Supersatz'}),
       makeExercise(late?'landmine':'incline',late?powerSets:assistSets,late?'4–6 / Seite':assistReps,{restSec:late?90:assistRest,block:late?'C2 · Power':'C2 · Supersatz'}),
-      makeExercise('runEasy',1,easyRunLabel(cfg.shortEasy),{restSec:0,timeMin:cfg.shortEasy,block:'Finish'})
+      makeExercise('runEasy',1,easyRunLabel(cfg.shortEasy,cfg.shortSpeed,cfg.shortIncline),{restSec:0,timeMin:cfg.shortEasy,block:'Finish',howToExtra:easyRunHowTo(cfg.shortEasy,cfg.shortSpeed,cfg.shortIncline)})
     ]);
     fill(3,'Lower · Pop-up & Turns',72,[
       makeExercise('lowerWarm',1,'6 Min.',{restSec:0,timeMin:6,block:'Warm-up'}),
@@ -109,7 +112,7 @@
       makeExercise('oneRow',assistSets,assistReps+' / Seite',{restSec:assistRest,block:'C1 · Supersatz'}),
       makeExercise('facepull',3,'12–15',{restSec:45,block:'C2 · Supersatz'}),
       makeExercise('external',2,'12–15 / Seite',{restSec:45,block:'Prehab'}),
-      makeExercise('intervals',1,cfg.interval,{restSec:0,timeMin:cfg.intervalMin,block:'Finish'})
+      makeExercise('intervals',1,cfg.interval,{restSec:0,timeMin:cfg.intervalMin,block:'Finish',howToExtra:intervalHowTo(cfg)})
     ]);
     fill(6,'Full Body · Surf-Stabilität',75,[
       makeExercise('lowerWarm',1,'6 Min.',{restSec:0,timeMin:6,block:'Warm-up'}),
@@ -118,7 +121,7 @@
       makeExercise('hip',assistSets,assistReps,{restSec:assistRest,block:'C1 · Supersatz'}),
       makeExercise(late?'chop':'deadbug',3,late?'8–10 / Seite':'8 / Seite',{restSec:45,block:'C2 · Supersatz'}),
       makeExercise('carry',3,'30–40 m',{restSec:60,block:'D · Carry'}),
-      makeExercise('runEasy',1,easyRunLabel(cfg.easy),{restSec:0,timeMin:cfg.easy,block:'Finish'})
+      makeExercise('runEasy',1,easyRunLabel(cfg.easy,cfg.easySpeed,cfg.easyIncline),{restSec:0,timeMin:cfg.easy,block:'Finish',howToExtra:easyRunHowTo(cfg.easy,cfg.easySpeed,cfg.easyIncline)})
     ]);
     return {id:`surf-year-month-${cfg.month}`,name:`Surf Year · Monat ${cfg.month}`,days,draft:false,programId:PROGRAM_ID,programVersion:PROGRAM_REVISION,programMonth:cfg.month,phase:cfg.phase,focus:cfg.focus,test:cfg.test};
   }
@@ -127,7 +130,7 @@
   const monthWeeks=[4,4,5,4,4,5,4,4,5,4,4,5];
   const months=configs.map(cfg=>({
     month:cfg.month,planId:`surf-year-month-${cfg.month}`,phase:cfg.phase,focus:cfg.focus,
-    weeks:monthWeeks[cfg.month-1],cardio:`Langer Zone-2-Lauf: ${easyRunLabel(cfg.easy)} · kurzer Zone-2-Lauf: ${easyRunLabel(cfg.shortEasy)} · Intervalle: ${cfg.interval}`,test:cfg.test,deload:'Woche 4: ca. 40 % weniger Kraftsätze, kein Muskelversagen, Cardio ca. 30 % kürzer. In den Monaten 3, 6, 9 und 12 folgt eine leichte Benchmark-/Pufferwoche.'
+    weeks:monthWeeks[cfg.month-1],cardio:`Langer Lauf: ${easyRunLabel(cfg.easy,cfg.easySpeed,cfg.easyIncline)} · kurzer Lauf: ${easyRunLabel(cfg.shortEasy,cfg.shortSpeed,cfg.shortIncline)} · Intervalle: ${cfg.interval} bei ${cfg.intervalSpeed.toFixed(1)} km/h und ${pct(cfg.intervalIncline)} %`,test:cfg.test,deload:'Woche 4: ca. 40 % weniger Kraftsätze, kein Muskelversagen, Cardio ca. 30 % kürzer. In den Monaten 3, 6, 9 und 12 folgt eine leichte Benchmark-/Pufferwoche.'
   }));
 
   function ensureState(state){
