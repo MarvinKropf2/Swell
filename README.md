@@ -1,8 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 50.
+Mobile-first workout tracker for personal gym and surf preparation. Version 51.
 
-Version 50 replaces the daily-readiness illness checkbox with an accessible, touch-friendly pill toggle, keeping its existing persisted sick-day flag unchanged.\n\nVersion 49 adds corrected workout timing when a finished session is reopened: only additional edit-session time is added, with a manual calendar duration correction option for older saved logs. A new optional `Krank` checkbox in Tagesform marks the relevant calendar date without affecting workouts or recommendations.
+Version 51 shortens the sick-day switch description to a user-facing calendar message, without changing how illness is saved, displayed, or used.\n\nVersion 50 replaces the daily-readiness illness checkbox with an accessible, touch-friendly pill toggle, keeping its existing persisted sick-day flag unchanged.\n\nVersion 49 adds corrected workout timing when a finished session is reopened: only additional edit-session time is added, with a manual calendar duration correction option for older saved logs. A new optional `Krank` checkbox in Tagesform marks the relevant calendar date without affecting workouts or recommendations.
 
 Version 48 implements the approved 12-month surf workout: one weekly leg-strength day, complete upper-body and core coverage, complementary exercise ordering, and separate progressive short-run, long-run and interval exercises for every month. It preserves saved workout history and the completed update-day plan snapshot. See [the v4 training-plan reference](docs/surf-year-plan-v4.md).
 
