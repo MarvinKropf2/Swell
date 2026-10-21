@@ -1,4 +1,4 @@
-const CACHE='swell-v51.0';
+const CACHE='swell-v52.0';
 const SHELL=['/','/index.html','/firebase-config.js','/surf-year-plan.js?v=46.0','/surf-year-plan-v4.js?v=48.0','/stretching.js?v=44.0','/stretching.css?v=44.0','/manifest.webmanifest','/icons/swell-icon.svg','/icons/swell-icon-192.png','/icons/swell-icon-512.png','/icons/apple-touch-icon.png'];
 
 self.addEventListener('install',event=>{
