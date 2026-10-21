@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="51"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
+<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="52"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
 <script>try{document.documentElement.classList.add('is-booting');if(sessionStorage.getItem('swell_update_restore'))document.documentElement.classList.add('is-updating')}catch{}</script>
 <style>
 :root{color-scheme:dark;--bg:#101513;--surf:#1b2420;--surf2:#202a25;--bd:#344039;--fg:#f2f5f0;--muted:#a3afa6;--sage:#bed7c4;--deep:#18221b;--ease:cubic-bezier(.22,1,.36,1);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
@@ -76,6 +76,7 @@ html[data-motion="soft"] .nav button:active{transform:scale(.98)}html[data-motio
 .calday.missed{background:#d7a47a14;border-color:#d7a47a55}.calday.missed:after{display:none}.calday.selected.missed{background:var(--sage);border-color:var(--sage);color:var(--deep)}.missed-training{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:3px 0 13px;padding:11px 12px;border:1px solid #d7a47a55;border-radius:12px;background:#d7a47a0d}.missed-training strong{color:#e1b18b;font-size:12px}.missed-training span{color:var(--muted);font-size:10px;text-align:right}.active-plan-panel{margin-top:10px;padding:15px 16px}.active-plan-panel strong{display:block;margin-top:5px;font-size:19px;letter-spacing:-.35px}.calendar-food-summary{margin-bottom:10px}.calendar-food-list{padding:5px 16px}.calendar-food-entry{padding:12px 0;border-top:1px solid var(--bd)}.calendar-food-entry:first-child{border-top:0}.calendar-food-entry strong,.calendar-food-entry small{display:block}.calendar-food-entry strong{margin:7px 0 2px}.calendar-food-entry small{color:var(--muted);font-size:11px}
 @media(prefers-reduced-transparency:reduce){.toast,html[data-visual="apple"] .nav,html[data-visual="apple"] .settings-btn,html[data-visual="apple"] .visual-mode,html[data-visual="apple"] .icon-btn,html[data-visual="apple"] .secondary,html[data-visual="apple"] .back-btn,html[data-visual="apple"] .pill,html[data-visual="apple"] .sheet{background:#202b26;backdrop-filter:none;-webkit-backdrop-filter:none}.nav:before,.nav:after{display:none}}
 </style><style>
+.auth-alternatives{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:13px}.auth-alternatives .text-btn{width:100%;justify-content:center}.email-auth-separator{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--muted);font-size:12px}.email-auth-separator:before,.email-auth-separator:after{content:"";height:1px;background:var(--bd);flex:1}.account-backup{margin-top:13px}.account-backup .sub{margin:0 0 10px}
 .settings-account .grow{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
 .settings-account .grow strong,.settings-account .grow small{display:block;max-width:100%;overflow-wrap:anywhere}
 </style><link rel="stylesheet" href="./stretching.css?v=44.0"></head>
@@ -261,7 +262,94 @@ function openReadiness(automatic=false){view.readinessOpen=true;view.readinessAu
 function maybePromptReadiness(){if(shouldPromptReadiness()&&!$('#modal').innerHTML)openReadiness(true)}
 function clearAutoReadinessIfSynced(){if(view.readinessAutoPrompted&&state.readiness?.[today()]){view.readinessOpen=false;view.readinessAutoPrompted=false;$('#modal').innerHTML='';render()}}
 function cloudNeedsRetry(){return !!cloud.uid&&cloud.status!=='Daten werden geladen'&&cloud.status!=='Firebase wird verbunden'&&(!cloud.synced||/Sync-Fehler|nicht erreichbar|Offline|nicht gefunden|abgelaufen/i.test(cloud.status))}
-function openSettings(){view.settingsOpen=true;const user=cloud.user,initial=(user?.displayName||user?.email||'S').trim().charAt(0).toUpperCase(),retry=cloudNeedsRetry();const account=cloud.uid?`<div class="settings-account"><span class="account-avatar">${esc(initial)}</span><div class="grow"><strong>${esc(user?.displayName||'Google-Konto')}</strong><small>${esc(user?.email||'Angemeldet')}</small></div></div><div class="settings-row"><small><i id="cloud-status-dot" class="sync-dot ${cloud.synced&&cloud.status==='Mit Google verbunden'?'on':''}"></i><span id="cloud-status">${esc(cloud.status)}</span></small></div><div id="cloud-retry-host">${retry?`<button class="secondary full" data-cloud-retry ${cloud.reconnecting?'disabled':''}>${cloud.reconnecting?'Verbindung wird geprüft …':'Erneut synchronisieren'}</button>`:''}</div><button class="secondary full" data-cloud-action>Abmelden</button>`:cloud.configured?`<div class="settings-row"><strong>Auf allen Geräten synchronisieren</strong><small>Mit demselben Google-Konto sind Training, Kalender, Essen und Fortschritt überall verfügbar.</small></div><div class="settings-row"><small><i id="cloud-status-dot" class="sync-dot"></i><span id="cloud-status">${esc(cloud.status)}</span></small></div><div id="cloud-retry-host"></div><button class="primary full" data-cloud-action>Mit Google anmelden</button>`:`<div class="settings-row"><strong>Google-Sync ist vorbereitet</strong><small>Für die Aktivierung fehlt noch einmalig die Verbindung zu einem Firebase-Projekt. Bis dahin bleiben alle Daten sicher in diesem Browser.</small></div><button class="secondary full" disabled>Einrichtung nötig</button>`;modal(`${sheetTop('EINSTELLUNGEN')}<h2>Einstellungen</h2><div class="card" id="settings-account" data-cloud-account="${esc(cloud.uid||'')}">${account}</div>${section('Datensicherung')}<div class="card"><div class="settings-row"><strong>Lokales Backup</strong><small>Exportiere eine Kopie deiner Daten oder stelle eine vorhandene SWELL-Datei wieder her.</small></div><div class="backup-tools"><button class="secondary" data-export>Backup exportieren</button><button class="secondary" data-import>Backup importieren</button><input type="file" id="import-file" accept="application/json,.json" hidden></div></div><p class="data-info">Keine Passwörter oder geheimen Zugangsdaten werden in SWELL gespeichert.</p>`)}
+function openSettings(){view.settingsOpen=true;const user=cloud.user,initial=(user?.displayName||user?.email||'S').trim().charAt(0).toUpperCase(),retry=cloudNeedsRetry();const account=cloud.uid?`<div class="settings-account"><span class="account-avatar">${esc(initial)}</span><div class="grow"><strong>${esc(user?.displayName||(user?.providerData?.some(p=>p.providerId==='google.com')?'Google-Konto':'E-Mail-Konto'))}</strong><small>${esc(user?.email||'Angemeldet')}</small></div></div><div class="settings-row"><small><i id="cloud-status-dot" class="sync-dot ${cloud.synced&&cloud.status==='Mit Konto verbunden'?'on':''}"></i><span id="cloud-status">${esc(cloud.status)}</span></small></div><div id="cloud-retry-host">${retry?`<button class="secondary full" data-cloud-retry ${cloud.reconnecting?'disabled':''}>${cloud.reconnecting?'Verbindung wird geprüft …':'Erneut synchronisieren'}</button>`:''}</div>${user?.email&&!user?.providerData?.some(p=>p.providerId==="password")?`<div class="account-backup"><p class="sub">Ohne Google anmelden? Richte ein Passwort für dieses Konto ein und behalte deine Trainingsdaten.</p><button class="secondary full" data-email-auth-open="link">E-Mail-Anmeldung als Backup einrichten</button></div>`:user?.providerData?.some(p=>p.providerId==="password")?`<p class="sub" style="margin:12px 0">E-Mail-Anmeldung ist aktiviert.</p>`:""}<button class="secondary full" data-cloud-action>Abmelden</button>`:cloud.configured?`<div class="settings-row"><strong>Auf allen Geräten synchronisieren</strong><small>Mit Google oder E-Mail und Passwort sind Training, Kalender, Essen und Fortschritt überall verfügbar.</small></div><div class="settings-row"><small><i id="cloud-status-dot" class="sync-dot"></i><span id="cloud-status">${esc(cloud.status)}</span></small></div><div id="cloud-retry-host"></div><button class="primary full" data-cloud-action>Mit Google anmelden</button><div class="email-auth-separator">oder</div><button class="secondary full" data-email-auth-open="login">Mit E-Mail anmelden</button><button class="text-btn full" data-email-auth-open="register" style="margin-top:8px">Neues Konto erstellen</button>`:`<div class="settings-row"><strong>Google-Sync ist vorbereitet</strong><small>Für die Aktivierung fehlt noch einmalig die Verbindung zu einem Firebase-Projekt. Bis dahin bleiben alle Daten sicher in diesem Browser.</small></div><button class="secondary full" disabled>Einrichtung nötig</button>`;modal(`${sheetTop('EINSTELLUNGEN')}<h2>Einstellungen</h2><div class="card" id="settings-account" data-cloud-account="${esc(cloud.uid||'')}">${account}</div>${section('Datensicherung')}<div class="card"><div class="settings-row"><strong>Lokales Backup</strong><small>Exportiere eine Kopie deiner Daten oder stelle eine vorhandene SWELL-Datei wieder her.</small></div><div class="backup-tools"><button class="secondary" data-export>Backup exportieren</button><button class="secondary" data-import>Backup importieren</button><input type="file" id="import-file" accept="application/json,.json" hidden></div></div><p class="data-info">Keine Passwörter oder geheimen Zugangsdaten werden in SWELL gespeichert.</p>`)}
+function authErrorText(error){
+ const msg={
+ "auth/email-already-in-use":"Diese E-Mail-Adresse wird bereits verwendet. Melde dich mit deinem bestehenden Konto an. Für Google-Konten lässt sich unter Einstellungen ein Passwort hinzufügen.",
+ "auth/invalid-email":"Bitte gib eine gültige E-Mail-Adresse ein.",
+ "auth/invalid-credential":"E-Mail oder Passwort ist nicht korrekt.",
+ "auth/wrong-password":"E-Mail oder Passwort ist nicht korrekt.",
+ "auth/user-not-found":"E-Mail oder Passwort ist nicht korrekt.",
+ "auth/weak-password":"Das Passwort ist zu schwach. Wähle ein stärkeres Passwort.",
+ "auth/password-does-not-meet-requirements":"Das Passwort erfüllt die Sicherheitsanforderungen nicht.",
+ "auth/operation-not-allowed":"E-Mail/Passwort muss zuerst in Firebase Authentication unter Anmeldemethode aktiviert werden.",
+ "auth/network-request-failed":"Keine Verbindung zu Firebase. Bitte prüfe deine Internetverbindung.",
+ "auth/too-many-requests":"Zu viele Versuche. Bitte versuche es später erneut.",
+ "auth/requires-recent-login":"Melde dich erneut mit Google an und versuche es nochmals.",
+ "auth/provider-already-linked":"Für dieses Konto ist bereits ein Passwort eingerichtet.",
+ "auth/credential-already-in-use":"Diese Anmeldedaten gehören bereits zu einem anderen Konto.",
+ "auth/user-disabled":"Dieses Konto wurde deaktiviert."
+ };
+ return msg[String(error?.code||"")]||"Anmeldung fehlgeschlagen. Bitte versuche es erneut.";
+}
+
+function openEmailAuth(mode="login"){
+ if(!["login","register","link"].includes(mode))mode="login";
+ if(!cloud.configured||!cloud.auth){toast("Firebase wird vorbereitet. Bitte versuche es erneut.");return}
+ if(mode==="link"&&(!cloud.auth.currentUser||!cloud.user?.email)){toast("Für dieses Konto ist keine E-Mail-Adresse verfügbar.");return}
+ if(mode!=="link"&&cloud.auth.currentUser){openSettings();return}
+ const linking=mode==="link",registering=mode==="register",creating=linking||registering;
+ const title=linking?"E-Mail-Anmeldung aktivieren":registering?"Konto erstellen":"Mit E-Mail anmelden";
+ const description=linking?"Erstelle ein Passwort für deine Google-E-Mail-Adresse. Du kannst dich dann auch ohne Google mit demselben Konto und deinen Trainingsdaten anmelden.":registering?"Registriere dich mit E-Mail und Passwort. Deine Trainingsdaten werden über Firebase synchronisiert.":"Melde dich unabhängig von Google mit deinem SWELL-Konto an.";
+ modal(`${sheetTop("KONTO")}<h2>${title}</h2><p class="sub" style="margin:-8px 0 18px">${description}</p>
+ <form id="email-auth-form" data-mode="${mode}">
+ <label class="field"><span>E-Mail-Adresse</span><input name="email" type="email" inputmode="email" autocomplete="username" spellcheck="false" autocapitalize="none" ${linking?`readonly value="${esc(cloud.user.email)}"`:""} placeholder="name@beispiel.ch" required></label>
+ <label class="field"><span>${creating?"Passwort erstellen":"Passwort"}</span><input name="password" type="password" autocomplete="${creating?"new-password":"current-password"}" minlength="${creating?8:1}" placeholder="${creating?"Mindestens 8 Zeichen":"Dein Passwort"}" required></label>
+ ${creating?'<label class="field"><span>Passwort bestätigen</span><input name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></label><p class="sub small">Mindestens 8 Zeichen. Verwende ein sicheres, einzigartiges Passwort.</p>':""}
+ <p id="email-auth-feedback" class="sub" role="alert" aria-live="polite" style="min-height:18px;margin:12px 0"></p>
+ <button type="submit" class="primary full">${linking?"Passwort aktivieren":registering?"Registrieren":"Anmelden"}</button></form>
+ ${!linking?`<div class="auth-alternatives">${!registering?'<button class="text-btn" data-email-reset>Passwort vergessen?</button>':""}<button class="text-btn" data-email-auth-open="${registering?"login":"register"}">${registering?"Bereits registriert? Anmelden":"Noch kein Konto? Registrieren"}</button></div>`:""}
+ <button class="secondary full" style="margin-top:13px" data-email-back>Zurück zu Einstellungen</button>`);
+}
+
+async function performEmailAuth(form){
+ if(cloud.authBusy||!cloud.auth||!cloud.api?.auth)return;
+ const mode=form.dataset.mode,email=form.elements.namedItem("email").value.trim().toLowerCase(),password=form.elements.namedItem("password").value;
+ const feedback=form.querySelector("#email-auth-feedback"),button=form.querySelector('button[type="submit"]');
+ if(mode==="link"&&email!==cloud.auth.currentUser?.email?.toLowerCase()){feedback.textContent="Die E-Mail-Adresse gehört nicht zu deinem aktuellen Konto.";return}
+ if(mode!=="login"){
+  if(password.length<8){feedback.textContent="Bitte mindestens 8 Zeichen verwenden.";return}
+  if(password!==form.elements.namedItem("confirmPassword").value){feedback.textContent="Die Passwörter stimmen nicht überein.";return}
+ }
+ cloud.authBusy=true;button.disabled=true;feedback.textContent="Anmeldung wird verarbeitet …";
+ try{
+  const auth=cloud.api.auth;
+  if(mode==="link"){
+   await auth.linkWithCredential(cloud.auth.currentUser,auth.EmailAuthProvider.credential(email,password));
+  }else if(mode==="register"){
+   await auth.createUserWithEmailAndPassword(cloud.auth,email,password);
+  }else{
+   await auth.signInWithEmailAndPassword(cloud.auth,email,password);
+  }
+  openSettings();toast(mode==="link"?"E-Mail-Anmeldung aktiviert":mode==="register"?"Konto erstellt und angemeldet":"Erfolgreich angemeldet");
+ }catch(error){
+  console.error("SWELL E-Mail-Authentifizierung",error?.code||"unbekannt");
+  if(form.isConnected)feedback.textContent=authErrorText(error);
+ }finally{
+  cloud.authBusy=false;if(button.isConnected)button.disabled=false;
+ }
+}
+
+function handleEmailAuthSubmit(event){
+ if(event.target.id!=="email-auth-form")return;
+ event.preventDefault();void performEmailAuth(event.target);
+}
+
+async function resetEmailPassword(){
+ const form=document.querySelector("#email-auth-form"),feedback=document.querySelector("#email-auth-feedback");
+ if(!form||cloud.authBusy||!cloud.auth||!cloud.api?.auth)return;
+ const emailField=form.elements.namedItem("email"),email=emailField.value.trim();
+ if(!email||!emailField.checkValidity()){feedback.textContent="Bitte gib zuerst eine gültige E-Mail-Adresse ein.";return}
+ cloud.authBusy=true;const button=document.querySelector("[data-email-reset]");if(button)button.disabled=true;
+ try{
+  await cloud.api.auth.sendPasswordResetEmail(cloud.auth,email);
+  if(feedback.isConnected)feedback.textContent="Falls ein E-Mail-Konto existiert, erhältst du eine Nachricht zum Zurücksetzen des Passworts.";
+ }catch(error){
+  console.error("SWELL Passwort zurücksetzen",error?.code||"unbekannt");
+  if(feedback.isConnected)feedback.textContent=authErrorText(error);
+ }finally{cloud.authBusy=false;if(button?.isConnected)button.disabled=false}
+}
+
 function openPlanEditor(id){const p=state.plans.find(p=>p.id===id),creating=!p;view.planEditor=id||'new';modal(`${sheetTop('WOCHENPLAN')}<h2>${creating?'Neuer Wochenplan':'Wochenplan bearbeiten'}</h2><form id="plan-form" autocomplete="off"><label class="field"><span>Name</span><input name="planTitle" type="text" inputmode="text" autocomplete="off" autocapitalize="sentences" enterkeyhint="done" maxlength="60" value="${esc(p?.name||'')}" placeholder="z. B. Winter Training" required autofocus></label><div class="modal-actions"><button type="button" class="secondary" data-close-modal>Abbrechen</button><button type="submit" class="primary">Speichern</button></div></form>${p&&state.plans.length>1?`<button class="dangerlink" data-delete-plan="${esc(p.id)}">Diesen Plan löschen</button>`:''}`)}
 function openDayEditor(w){const p=viewPlan(),d=day(p,w);if(!d)return;view.dayEditor=w;view.dayDetail=null;modal(`${sheetTop('TRAININGSTAG')}<h2>${['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'][w]}</h2><label class="field"><span>Name des Workouts</span><input data-day-title="${w}" maxlength="70" type="text" inputmode="text" autocomplete="off" autocapitalize="sentences" enterkeyhint="done" value="${esc(d.title||'')}" placeholder="z. B. Upper A"></label>${section('Übungen',`${d.ex.length} gesamt`)}<div class="stack">${d.ex.map((e,i)=>`<div class="card soft" style="padding:12px"><div class="between"><div class="grow"><strong class="small">${esc(e.name)}</strong><p class="tiny">${e.sets} × ${esc(e.reps)}${e.kg?` · ${esc(e.kg)} kg`:''}</p></div><button class="icon-btn" data-edit-ex="${w}:${esc(e.id)}" aria-label="Bearbeiten">${ico('edit')}</button></div><div class="flex" style="justify-content:flex-end;margin-top:8px"><button class="text-btn" ${i===0?'disabled':''} data-move-ex="${w}:${esc(e.id)}:-1">↑</button><button class="text-btn" ${i===d.ex.length-1?'disabled':''} data-move-ex="${w}:${esc(e.id)}:1">↓</button><button class="text-btn danger" data-remove-ex="${w}:${esc(e.id)}">Entfernen</button></div></div>`).join('')}</div><button class="secondary full" style="margin-top:14px" data-add-ex="${w}">+ Übung hinzufügen</button><button class="primary full" style="margin-top:10px" data-save-day="${w}">Trainingstag speichern</button>${d.ex.length?`<button class="dangerlink" data-clear-day="${w}">Tag als Ruhetag markieren</button>`:''}`)}
 const mediaCatalog={benchpress:'barbell bench press',incline:'incline dumbbell press',pullup:'pull up',row:'seated cable row',shoulder:'shoulder press',lateral:'lateral raise',facepull:'face pull',jump:'squat jump',popup:'surf pop up',squat:'barbell squat',rdl:'romanian deadlift',split:'bulgarian split squat',legcurl:'leg curl',pallof:'pallof press',curl:'biceps curl',triceps:'triceps pushdown',legpress:'leg press',lunge:'reverse lunge',hipthrust:'hip thrust',woodchop:'cable woodchop',calf:'calf raise',mobility:'hip mobility',custom:''};
@@ -292,6 +380,7 @@ document.addEventListener('input',e=>{
  persist();updateSetUi(+i,+j)
 });
 document.addEventListener('change',async e=>{if(e.target.id==='visual-mode'){const modes=['current','apple-soft','apple-flow','apple-spring','apple-glide'];state.visualMode=modes.includes(e.target.value)?e.target.value:'current';persist();applyVisualMode();const labels={current:'Aktuelles Design aktiviert','apple-soft':'Glass · Sanft aktiviert','apple-flow':'Glass · Flüssig aktiviert','apple-spring':'Glass · Federnd aktiviert','apple-glide':'Glass · Gleiten aktiviert'};toast(labels[state.visualMode]);return}if(e.target.id==='session-exercise-preset'){const index=e.target.value===''?null:Number(e.target.value),choice=index===null?null:view.sessionExerciseChoices?.[index],form=e.target.form;if(!choice||!form)return;form.elements.namedItem('exerciseTitle').value=choice.name||'';form.elements.namedItem('sets').value=choice.sets||3;form.elements.namedItem('reps').value=choice.reps||'8–12';form.elements.namedItem('trackWeight').value=inferredTrackWeight(choice)?'yes':'no';form.elements.namedItem('kg').value=inferredTrackWeight(choice)?choice.kg||'':'';form.elements.namedItem('cat').value=choice.cat||'Kraft';form.elements.namedItem('howTo').value=choice.howTo||'';return}if(e.target.id==='weekpicker'&&e.target.value){const chosen=parseDate(e.target.value);state.weekOffset=Math.round((weekStart(chosen)-weekStart(new Date()))/(7*86400000));state.homeDate=iso(chosen);persist();render();return}if(e.target.id==='import-file'){const f=e.target.files?.[0];if(!f)return;try{const obj=JSON.parse(await f.text());if(!migrateSessionFromBackup(obj))throw Error('Datei ungültig');if(!confirm('Aktuelle SWELL-Daten durch das Backup ersetzen?'))return;state=normalizeState(obj);state.activePlanId=state.plans.find(p=>p.id===state.activePlanId)?.id||state.plans[0].id;view={showPlans:false,showWeek:false,planBuilder:false,surfYearOpen:false,settingsOpen:false,sessionOpen:false,readinessOpen:false,readinessDismissed:false,planEditor:null,dayEditor:null,exEditor:null,sessionExEditor:null,sessionExerciseChoices:null,exerciseDemo:null,selectedPlanId:state.activePlanId,backupOpen:false};persist();$('#modal').innerHTML='';render();toast('Backup importiert')}catch{toast('Backup konnte nicht gelesen werden')}return}});
+document.addEventListener('submit',handleEmailAuthSubmit);
 document.addEventListener('submit',e=>{if(e.target.id==='session-exercise-form'&&state.session&&e.target.checkValidity())state.session.touched=true},{capture:true});
 document.addEventListener('submit',e=>{if(e.target.id==='duration-form'){e.preventDefault();const fields=e.target.elements,log=state.history.find(h=>h.id===fields.namedItem('logId').value),raw=fields.namedItem('minutes').value,minutes=Number(raw);if(!log)return;if(!raw||!Number.isFinite(minutes)||minutes<1||minutes>720){toast('Bitte eine Dauer zwischen 1 und 720 Minuten eingeben');return}const durationSec=Math.round(minutes*60);log.summary={...buildWorkoutSummary(log),durationSec};if(state.session?.editId===log.id){state.session.editBaseDurationSec=durationSec;state.session.summary={...(state.session.summary||{}),durationSec}}persist();$('#modal').innerHTML='';render();toast('Trainingsdauer korrigiert');return}if(e.target.id==='surf-year-date-form'){e.preventDefault();const value=e.target.elements.namedItem('startDate').value;if(!/^\d{4}-\d{2}-\d{2}$/.test(value))return;state.annualProgram.startDate=value;persist();render();toast('Programmstart gespeichert');return}if(e.target.id==='readiness-form'){e.preventDefault();const f=e.target.elements,sleep=Number(f.namedItem('sleep').value),energy=Number(f.namedItem('energy').value),soreness=Number(f.namedItem('soreness').value);if([sleep,energy,soreness].some(v=>v<1||v>5)){toast('Bitte alle drei Angaben auswählen');return}const previousReadiness=state.readiness[today()]||{};state.readiness[today()]={sleep,energy,soreness,sick:!!f.namedItem('sick')?.checked,created:previousReadiness.created||Date.now()};if(state.session)for(const ex of state.session.exercises)ex.suggestion=state.session.programContext?.recovery?'Entlastungswoche: leicht trainieren und keine Zusatzsätze ergänzen.':progressionSuggestion({id:ex.id,name:ex.name,reps:ex.repsTarget,trackWeight:ex.trackWeight,cat:ex.cat},state.session.date);view.readinessOpen=false;view.readinessAutoPrompted=false;view.readinessDismissed=true;persist();$('#modal').innerHTML='';render();toast('Tagesform gespeichert');return}
  if(e.target.id==='session-exercise-form'){e.preventDefault();if(!state.session)return;const f=e.target.elements,v=n=>f.namedItem(n).value,name=v('exerciseTitle').trim(),sets=Number(v('sets')),trackWeight=v('trackWeight')==='yes',presetIndex=v('preset')===''?null:Number(v('preset')),preset=presetIndex===null?null:view.sessionExerciseChoices?.[presetIndex];if(!name||!Number.isInteger(sets)||sets<1||sets>12){toast('Name oder Sätze ungültig');return}const template={id:uid(),name,sets,reps:v('reps').trim(),kg:trackWeight?(v('kg')||''):'',cat:v('cat'),media:preset?.media||'custom',howTo:v('howTo').trim(),trackWeight},exercise=sessionExercise(template,state.session.date,state.session.programContext),index=view.sessionExEditor;if(index===null||index===undefined)state.session.exercises.push(exercise);else state.session.exercises[index]=exercise;view.sessionExEditor=null;view.sessionExerciseChoices=null;persist();$('#modal').innerHTML='';render();toast(index===null||index===undefined?'Übung hinzugefügt':'Übung ausgetauscht');return}
@@ -356,6 +445,9 @@ document.addEventListener('click',e=>{if(e.target.matches('[data-modal-backdrop]
  if(d.deleteLog){const index=state.history.findIndex(h=>h.id===d.deleteLog),log=state.history[index];if(!log)return;if(!confirm(`„${log.dayTitle||'Workout'}“ vom ${fmt(log.date)} wirklich löschen?`))return;const snapshot=structuredClone(log),oldSession=state.session?.editId===d.deleteLog?structuredClone(state.session):null,oldSessionOpen=view.sessionOpen;state.deletedLogIds=[...new Set([...(state.deletedLogIds||[]),d.deleteLog])];state.history.splice(index,1);if(oldSession){state.session=null;view.sessionOpen=false}persist();render();toast('Gespeichertes Training gelöscht',()=>{state.deletedLogIds=(state.deletedLogIds||[]).filter(id=>id!==snapshot.id);state.history.splice(Math.min(index,state.history.length),0,structuredClone(snapshot));if(oldSession){state.session=oldSession;view.sessionOpen=oldSessionOpen}persist();render()});return}
  if(d.addWeight!==undefined){const v=Number($('#weight-input').value);if(!Number.isFinite(v)||v<30||v>250){toast('Bitte gültiges Gewicht eingeben');return}state.weights.push({value:v,date:today()});persist();render();toast('Gewicht gespeichert');return}
  if(d.deleteFoodEntry){const date=today(),food=state.food[date];if(!food?.entries)return;const index=food.entries.findIndex(entry=>entry.id===d.deleteFoodEntry);if(index<0)return;const removed=food.entries[index];food.entries.splice(index,1);persist();render();toast('Eintrag gelöscht',()=>{const target=(state.food[date]??={entries:[]});target.entries??=[];target.entries.splice(Math.min(index,target.entries.length),0,structuredClone(removed));persist();render()});return}
+ if(d.emailAuthOpen!==undefined){openEmailAuth(d.emailAuthOpen);return}
+ if(d.emailBack!==undefined){openSettings();return}
+ if(d.emailReset!==undefined){void resetEmailPassword();return}
  if(d.cloudRetry!==undefined){if(cloud.reconnecting||!cloud.reconnect)return;cloud.reconnecting=true;cloud.status='Verbindung wird geprüft';refreshCloudView();void cloud.reconnect().finally(()=>{cloud.reconnecting=false;refreshCloudView()});return}
  if(d.cloudAction!==undefined){void cloudAction();return}
  if(d.export!==undefined){downloadBackup();return}
@@ -389,7 +481,7 @@ function mergeRemote(remote,local){
  mergeStretchPlans(primary,secondary,remote,local);window.SWELL_SURF_YEAR.ensureState(primary);primary.version=41;
  return primary;
 }
-function refreshCloudView(){render();if(!view.settingsOpen)return;const account=$('#settings-account');if(!account)return;if(account.dataset.cloudAccount!==(cloud.uid||'')){openSettings();return}const status=$('#cloud-status');if(status&&status.textContent!==cloud.status)status.textContent=cloud.status;const dot=$('#cloud-status-dot');dot?.classList.toggle('on',cloud.synced&&cloud.status==='Mit Google verbunden');const host=$('#cloud-retry-host');if(host){const markup=cloudNeedsRetry()?`<button class="secondary full" data-cloud-retry ${cloud.reconnecting?'disabled':''}>${cloud.reconnecting?'Verbindung wird geprüft …':'Erneut synchronisieren'}</button>`:'';if(host.innerHTML!==markup)host.innerHTML=markup}}
+function refreshCloudView(){render();if(!view.settingsOpen)return;const account=$('#settings-account');if(!account)return;if(account.dataset.cloudAccount!==(cloud.uid||'')){openSettings();return}const status=$('#cloud-status');if(status&&status.textContent!==cloud.status)status.textContent=cloud.status;const dot=$('#cloud-status-dot');dot?.classList.toggle('on',cloud.synced&&cloud.status==='Mit Konto verbunden');const host=$('#cloud-retry-host');if(host){const markup=cloudNeedsRetry()?`<button class="secondary full" data-cloud-retry ${cloud.reconnecting?'disabled':''}>${cloud.reconnecting?'Verbindung wird geprüft …':'Erneut synchronisieren'}</button>`:'';if(host.innerHTML!==markup)host.innerHTML=markup}}
 function cloudFailureStatus(error){const code=String(error?.code||'').replace(/^firestore\//,''),message=String(error?.message||error?.name||'').replace(/\s+/g,' ').slice(0,100);if(!navigator.onLine)return 'Offline · Lokal gespeichert';if(code==='permission-denied')return 'Datenbankzugriff nicht freigegeben';if(code==='not-found')return 'Firestore-Datenbank nicht gefunden';if(code==='unauthenticated')return 'Anmeldung abgelaufen · erneut anmelden';if(code==='unavailable'||code==='deadline-exceeded')return `Firebase nicht erreichbar (${code}) · Lokal gespeichert`;return `Sync-Fehler · ${code||message||'unbekannt'} · Lokal gespeichert`}
 async function setupCloud(){
  if(!cloud.configured)return;
@@ -422,7 +514,7 @@ async function setupCloud(){
     if(!state.missedTrackingSince)state.missedTrackingSince=today();
     if(!initial.exists()||JSON.stringify(cloudPayload(initial.data().state||{}))!==JSON.stringify(cloudPayload(state)))state.modifiedAt=Date.now();
     localSave();
-    cloud.synced=true;cloud.status='Mit Google verbunden';
+    cloud.synced=true;cloud.status='Mit Konto verbunden';
     view.selectedPlanId=state.activePlanId;refreshCloudView();
     queueCloudWrite();
     cloud.unsubscribe=firestore.onSnapshot(ref,snapshot=>{
@@ -442,7 +534,7 @@ function queueCloudWrite(){clearTimeout(cloud.writeTimer);cloud.writeTimer=setTi
  if(!cloud.uid||!cloud.synced||!cloud.firestore)return;
  const account=cloud.uid,copy=cloudPayload(state),ref=cloud.api.firestore.doc(cloud.firestore,'users',account,'swellData','current');
  cloud.status=navigator.onLine?'Wird synchronisiert':'Offline · Lokal gespeichert';if(view.settingsOpen)openSettings();
- try{await cloud.api.firestore.setDoc(ref,{state:copy,updatedAt:cloud.api.firestore.serverTimestamp()});if(cloud.uid===account){cloud.status='Mit Google verbunden';if(view.settingsOpen)openSettings()}}
+ try{await cloud.api.firestore.setDoc(ref,{state:copy,updatedAt:cloud.api.firestore.serverTimestamp()});if(cloud.uid===account){cloud.status='Mit Konto verbunden';if(view.settingsOpen)openSettings()}}
  catch(e){console.error('SWELL Firebase save',e);if(cloud.uid===account){cloud.status='Sync-Fehler · Lokal gespeichert';if(view.settingsOpen)openSettings()}}
  },1100)}
 async function cloudAction(){
@@ -537,7 +629,7 @@ async function flushCloudWrites(){
  if(!cloud.uid||!cloud.synced||!cloud.firestore)return;
  if(!navigator.onLine){cloud.status='Offline · Lokal gespeichert';if(view.settingsOpen)refreshCloudView();return}
  if(cloud.writePromise){cloud.pendingWrite=true;return cloud.writePromise}
- if(!cloudDocumentsDiffer(cloudDocsForState(state),cloud.baselineDocs||new Map())){if(cloud.status!=='Mit Google verbunden'){cloud.status='Mit Google verbunden';refreshCloudView()}return}
+ if(!cloudDocumentsDiffer(cloudDocsForState(state),cloud.baselineDocs||new Map())){if(cloud.status!=='Mit Konto verbunden'){cloud.status='Mit Konto verbunden';refreshCloudView()}return}
  const account=cloud.uid;cloud.writing=true;cloud.status='Wird synchronisiert';if(view.settingsOpen)refreshCloudView();
  const task=(async()=>{const wanted=cloudDocsForState(state),known=cloud.baselineDocs||new Map(),operations=[];
   for(const [id,value] of wanted)if(!known.has(id)||cloudDocFingerprint(value)!==cloudDocFingerprint(known.get(id)))operations.push({id,value});
@@ -546,7 +638,7 @@ async function flushCloudWrites(){
   for(let offset=0;offset<operations.length;offset+=450){if(cloud.uid!==account)return;const batch=cloud.api.firestore.writeBatch(cloud.firestore),chunk=operations.slice(offset,offset+450);for(const op of chunk){const ref=cloud.api.firestore.doc(cloud.firestore,'users',account,'swellData',op.id);if(op.delete)batch.delete(ref);else batch.set(ref,{...op.value,serverUpdatedAt:cloud.api.firestore.serverTimestamp()})}await batch.commit();for(const op of chunk){if(op.delete)known.delete(op.id);else known.set(op.id,structuredClone(op.value))}}
  })();
  cloud.writePromise=task;
- try{await task;if(cloud.uid===account){cloud.status='Mit Google verbunden';if(view.settingsOpen)refreshCloudView()}}
+ try{await task;if(cloud.uid===account){cloud.status='Mit Konto verbunden';if(view.settingsOpen)refreshCloudView()}}
  catch(error){console.error('SWELL granular Firebase save',error);if(cloud.uid===account){cloud.status=cloudFailureStatus(error);if(view.settingsOpen)refreshCloudView()}}
  finally{if(cloud.writePromise===task)cloud.writePromise=null;cloud.writing=false;if(cloud.pendingWrite){cloud.pendingWrite=false;queueCloudWrite()}else if(cloud.uid===account&&cloudDocumentsDiffer(cloudDocsForState(state),cloud.baselineDocs||new Map()))queueCloudWrite()}
 }
@@ -567,7 +659,7 @@ setupCloud=async function setupCloudRecords(){
     const initial=await firestore.getDocs(collectionRef);if(cloud.uid!==user.uid)return;const documents=new Map(initial.docs.map(item=>[item.id,item.data()])),meta=documents.get('meta_v2');cloud.baselineDocs=documents;
     if(meta?.schema===2&&meta.data?.ready===true){const remote=cloudStateFromDocs(documents);state=mergeCloudState(remote,state)}
     else{const legacy=documents.get('current')?.state;if(legacy)state=normalizeState(mergeRemote(legacy,state));state.legacyStateModifiedAt=Number(legacy?.modifiedAt)||0}
-    if(!state.missedTrackingSince)state.missedTrackingSince=today();ensurePlanTimeline(state);localSave();cloud.synced=true;cloud.ready=true;cloud.status='Mit Google verbunden';view.selectedPlanId=state.activePlanId;clearAutoReadinessIfSynced();refreshCloudView();queueCloudWrite();maybePromptReadiness();
+    if(!state.missedTrackingSince)state.missedTrackingSince=today();ensurePlanTimeline(state);localSave();cloud.synced=true;cloud.ready=true;cloud.status='Mit Konto verbunden';view.selectedPlanId=state.activePlanId;clearAutoReadinessIfSynced();refreshCloudView();queueCloudWrite();maybePromptReadiness();
     cloud.unsubscribe=firestore.onSnapshot(collectionRef,snapshot=>{
      if(cloud.uid!==user.uid||!cloud.synced||snapshot.metadata.hasPendingWrites)return;const latest=new Map(snapshot.docs.map(item=>[item.id,item.data()]));cloud.baselineDocs=latest;const metaDoc=latest.get('meta_v2');if(metaDoc?.schema!==2||metaDoc.data?.ready!==true)return;
      let remote=cloudStateFromDocs(latest),legacy=latest.get('current')?.state,next;
@@ -601,7 +693,7 @@ async function registerWorker(){
  let refreshing=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;showUpdateSkeleton();setTimeout(()=>location.reload(),220)});
  try{
-  const registration=await navigator.serviceWorker.register('/sw.js?v=51.0',{updateViaCache:'none'});
+  const registration=await navigator.serviceWorker.register('/sw.js?v=52.0',{updateViaCache:'none'});
   await registration.update();
   const worker=registration.installing||registration.waiting;
   if(worker){
