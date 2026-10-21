@@ -1,8 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 51.
+Mobile-first workout tracker for personal gym and surf preparation. Version 52.
 
-Version 51 shortens the sick-day switch description to a user-facing calendar message, without changing how illness is saved, displayed, or used.\n\nVersion 50 replaces the daily-readiness illness checkbox with an accessible, touch-friendly pill toggle, keeping its existing persisted sick-day flag unchanged.\n\nVersion 49 adds corrected workout timing when a finished session is reopened: only additional edit-session time is added, with a manual calendar duration correction option for older saved logs. A new optional `Krank` checkbox in Tagesform marks the relevant calendar date without affecting workouts or recommendations.
+Version 52 adds Firebase email/password registration, login, reset emails, and password linking to existing Google accounts using the same user UID. The original Google login remains available.\n\nVersion 51 shortens the sick-day switch description to a user-facing calendar message, without changing how illness is saved, displayed, or used.\n\nVersion 50 replaces the daily-readiness illness checkbox with an accessible, touch-friendly pill toggle, keeping its existing persisted sick-day flag unchanged.\n\nVersion 49 adds corrected workout timing when a finished session is reopened: only additional edit-session time is added, with a manual calendar duration correction option for older saved logs. A new optional `Krank` checkbox in Tagesform marks the relevant calendar date without affecting workouts or recommendations.
 
 Version 48 implements the approved 12-month surf workout: one weekly leg-strength day, complete upper-body and core coverage, complementary exercise ordering, and separate progressive short-run, long-run and interval exercises for every month. It preserves saved workout history and the completed update-day plan snapshot. See [the v4 training-plan reference](docs/surf-year-plan-v4.md).
 
@@ -36,7 +36,7 @@ Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-c
 - Show the training week directly, with weekly-plan management immediately below the page heading.
 - Show the active plan name in a dedicated panel below weekly-plan management.
 - Review completed exercises, sets, reps, weights, failure sets, and notes in the calendar.
-- Start missed-workout tracking only when Google sync is first linked, then mark past scheduled days without a saved workout in the calendar.
+- Start missed-workout tracking only when Firebase sync is first linked, then mark past scheduled days without a saved workout in the calendar.
 - Show each day's saved food entries, calories, and protein in the calendar.
 - Reset the calendar to today after leaving it, including when another month or date was selected.
 - Delete a saved workout directly from its calendar entry.
@@ -67,10 +67,10 @@ Optional rest-day stretching rotates upper body, hips/legs, and back/posterior-c
 
 By default your information is saved in **localStorage on your browser and domain** only, **not** in GitHub or Vercel. Export a JSON backup through the app. Browser-data deletion or changing to a different Vercel domain can erase access to saved local workouts.
 
-Google/Firebase synchronization is configured for `swell-747e4`. Sign in from Settings with the same Google account on each device. Analytics is not loaded. The following console settings are required:
+Google/Firebase synchronization is configured for `swell-747e4`. Sign in from Settings with Google or email/password. A Google account can be given an email/password login in Settings to access the same training data without Google sign-in. Analytics is not loaded. The following console settings are required:
 
 1. Create a Firebase project and register a web app.
-2. Enable **Google** under Firebase Authentication → Sign-in method.
+2. Enable **Google** and **Email/Password** under Firebase Authentication → Sign-in method. Both providers must be enabled from the Firebase console.
 3. Create a Firestore database and publish the included `firestore.rules`.
 4. Public Firebase web-app configuration is included in `firebase-config.js`.
 5. Add the production Vercel domain to Firebase Authentication → Authorized domains.
