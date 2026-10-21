@@ -1,6 +1,8 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 52.
+Mobile-first workout tracker for personal gym and surf preparation. Version 53.
+
+Version 53 simplifies the Wednesday leg strength day across all twelve surf training phases to Leg Press, Leg Curl, Leg Extension, Hip Thrust Machine, Calf Raises and Pallof Press, plus the existing warm-up. Prescriptions progress by phase without changing exercises; the session target is 50 minutes. All other days and run prescriptions stay the same. Existing workout logs and historical plan snapshots are preserved; custom leg-day additions are retained.
 
 Version 52 adds Firebase email/password registration, login, reset emails, and password linking to existing Google accounts using the same user UID. The original Google login remains available.\n\nVersion 51 shortens the sick-day switch description to a user-facing calendar message, without changing how illness is saved, displayed, or used.\n\nVersion 50 replaces the daily-readiness illness checkbox with an accessible, touch-friendly pill toggle, keeping its existing persisted sick-day flag unchanged.\n\nVersion 49 adds corrected workout timing when a finished session is reopened: only additional edit-session time is added, with a manual calendar duration correction option for older saved logs. A new optional `Krank` checkbox in Tagesform marks the relevant calendar date without affecting workouts or recommendations.
 

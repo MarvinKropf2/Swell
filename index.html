@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="52"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
+<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="53"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
 <script>try{document.documentElement.classList.add('is-booting');if(sessionStorage.getItem('swell_update_restore'))document.documentElement.classList.add('is-updating')}catch{}</script>
 <style>
 :root{color-scheme:dark;--bg:#101513;--surf:#1b2420;--surf2:#202a25;--bd:#344039;--fg:#f2f5f0;--muted:#a3afa6;--sage:#bed7c4;--deep:#18221b;--ease:cubic-bezier(.22,1,.36,1);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
@@ -87,6 +87,7 @@ html[data-motion="soft"] .nav button:active{transform:scale(.98)}html[data-motio
 <script src="./firebase-config.js"></script>
 <script src="./surf-year-plan.js?v=46.0"></script>
 <script src="./surf-year-plan-v4.js?v=48.0"></script>
+<script src="./surf-year-plan-v5.js?v=53.0"></script>
 <script src="./stretching.js?v=44.0"></script>
 <script>
 'use strict';
@@ -693,7 +694,7 @@ async function registerWorker(){
  let refreshing=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;showUpdateSkeleton();setTimeout(()=>location.reload(),220)});
  try{
-  const registration=await navigator.serviceWorker.register('/sw.js?v=52.0',{updateViaCache:'none'});
+  const registration=await navigator.serviceWorker.register('/sw.js?v=53.0',{updateViaCache:'none'});
   await registration.update();
   const worker=registration.installing||registration.waiting;
   if(worker){
