@@ -1,6 +1,6 @@
 # SWELL
 
-Mobile-first workout tracker for personal gym and surf preparation. Version 53.
+Mobile-first workout tracker for personal gym and surf preparation. Version 54.
 
 Version 53 simplifies the Wednesday leg strength day across all twelve surf training phases to Leg Press, Leg Curl, Leg Extension, Hip Thrust Machine, Calf Raises and Pallof Press, plus the existing warm-up. Prescriptions progress by phase without changing exercises; the session target is 50 minutes. All other days and run prescriptions stay the same. Existing workout logs and historical plan snapshots are preserved; custom leg-day additions are retained.
 
