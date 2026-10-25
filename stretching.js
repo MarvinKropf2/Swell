@@ -91,8 +91,8 @@ function renderTrainingModulesClear(p){
   const programNotice=surfYearSwitchNotice();
   const weeks=`${section('Trainingswoche')}<div class="clear-week-list">${trainingWeekMarkup(p)}</div>`;
   const gym=gymToday
-    ?`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${todayTrainingCard()}${pendingTrainingCard()}${planRow}${weeks}</section>`
-    :`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
+    ?`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${todayTrainingCard()}${weekendMoveCard(today())}${pendingTrainingCard()}${planRow}${weeks}</section>`
+    :`<section class="training-clear-gym" aria-label="Wochenplan">${programNotice}${weekendMoveCard(today())}${planRow}<button class="week-disclosure clear-week-disclosure" data-toggle-gym-week aria-expanded="${!!view.gymWeekOpen}" aria-controls="gym-week-body"><strong>Trainingswoche</strong>${ico('chevron')}</button><div id="gym-week-body" ${view.gymWeekOpen?'':'hidden'} class="clear-week-body">${weeks}</div></section>`;
   const stretching=renderStretchModule(gymToday);
   const trainingTitle='<h1 class="training-section-title">Training</h1>';
   return `<div class="training-system-clear">${gymToday?trainingTitle+gym+stretching:stretching+trainingTitle+gym}</div>`;
