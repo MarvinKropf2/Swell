@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="53"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
+<html lang="de-CH"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="swell-build" content="55"><meta name="theme-color" content="#101513"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="SWELL"><link rel="manifest" href="/manifest.webmanifest?v=44"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=44"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png?v=44"><link rel="icon" type="image/png" sizes="192x192" href="/icons/swell-icon-192.png?v=44"><link rel="icon" type="image/svg+xml" href="/icons/swell-icon.svg?v=44"><title>SWELL — Training</title>
 <script>try{document.documentElement.classList.add('is-booting');if(sessionStorage.getItem('swell_update_restore'))document.documentElement.classList.add('is-updating')}catch{}</script>
 <style>
 :root{color-scheme:dark;--bg:#101513;--surf:#1b2420;--surf2:#202a25;--bd:#344039;--fg:#f2f5f0;--muted:#a3afa6;--sage:#bed7c4;--deep:#18221b;--ease:cubic-bezier(.22,1,.36,1);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
@@ -88,8 +88,8 @@ html[data-motion="soft"] .nav button:active{transform:scale(.98)}html[data-motio
 <script src="./surf-year-plan.js?v=46.0"></script>
 <script src="./surf-year-plan-v4.js?v=48.0"></script>
 <script src="./surf-year-plan-v5.js?v=53.0"></script>
-<script src="./surf-year-plan-v6.js?v=54.0"></script>
-<script src="./stretching.js?v=44.0"></script>
+<script src="./surf-year-plan-v6.js?v=55.0"></script>
+<script src="./stretching.js?v=55.0"></script>
 <script>
 'use strict';
 const $=s=>document.querySelector(s);
@@ -117,7 +117,7 @@ const UPDATE_RESTORE_KEY='swell_update_restore';
 function consumeUpdateRestore(){try{const saved=JSON.parse(sessionStorage.getItem(UPDATE_RESTORE_KEY)||'null');sessionStorage.removeItem(UPDATE_RESTORE_KEY);return saved&&Date.now()-Number(saved.at||0)<120000?saved:null}catch{return null}}
 function migrateLegacy(){let fresh=seed();try{const old=JSON.parse(localStorage.getItem(oldKey)||'null');if(!old||!Array.isArray(old.history))return fresh;const wk=[1,2,4,5];const toLog=log=>{const weekday=wk[log.plan]??1,day=fresh.plans[0].days[weekday];return {id:log.id||uid(),date:log.date||today(),planId:fresh.plans[0].id,planName:fresh.plans[0].name,dayTitle:day.title,weekday,created:log.started||Date.now(),exercises:day.ex.map((ex,i)=>({id:ex.id,name:ex.name,sets:(log.sets?.[i]||[]).map(r=>({kg:String(r.kg??''),reps:String(r.reps??''),done:!!r.done,failure:!!r.failure,notes:String(r.notes??'')}))}))}};fresh.history=old.history.filter(w=>Number.isInteger(w?.plan)).map(toLog);fresh.weights=(old.weight||[]).map(x=>({date:x.date,value:Number(x.value)}));fresh.food=old.food||{};return fresh}catch{return fresh}}
 function load(){try{const obj=JSON.parse(localStorage.getItem(KEY)||'null');if(obj&&Array.isArray(obj.plans)&&obj.plans.length&&Array.isArray(obj.history))return {...seed(),...obj};return migrateLegacy()}catch{return seed()}}
-function normalizeState(obj){normalizeStretchPlans(obj);obj.version=41;delete obj.layoutMode;delete obj.restTimer;obj.visualMode='apple-flow';obj.deletedLogIds=Array.isArray(obj.deletedLogIds)?obj.deletedLogIds:[];obj.deletedPlanIds=Array.isArray(obj.deletedPlanIds)?obj.deletedPlanIds:[];window.SWELL_SURF_YEAR.ensureState(obj);obj.readiness=obj.readiness&&typeof obj.readiness==='object'?obj.readiness:{};obj.missedTrackingSince=/^\d{4}-\d{2}-\d{2}$/.test(String(obj.missedTrackingSince||''))?obj.missedTrackingSince:null;for(const p of obj.plans||[]){p.draft=!!p.draft;for(const d of p.days||[])for(const ex of d.ex||[]){ex.trackWeight=inferredTrackWeight(ex);if(!ex.trackWeight)ex.kg=''}}for(const log of obj.history||[]){if(!log.readiness&&obj.readiness[log.date])log.readiness=structuredClone(obj.readiness[log.date]);for(const ex of log.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}}if(obj.session)for(const ex of obj.session.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}if(obj.session&&!obj.session.editId&&(obj.history||[]).some(log=>log.id===obj.session.id||log.id===obj.session.editId))obj.session=null;return obj}
+function normalizeState(obj){normalizeStretchPlans(obj);obj.version=41;delete obj.layoutMode;delete obj.restTimer;obj.visualMode='apple-flow';obj.deletedLogIds=Array.isArray(obj.deletedLogIds)?obj.deletedLogIds:[];obj.deletedPlanIds=Array.isArray(obj.deletedPlanIds)?obj.deletedPlanIds:[];obj.weekendMoves=obj.weekendMoves&&typeof obj.weekendMoves==='object'&&!Array.isArray(obj.weekendMoves)?obj.weekendMoves:{};window.SWELL_SURF_YEAR.ensureState(obj);obj.readiness=obj.readiness&&typeof obj.readiness==='object'?obj.readiness:{};obj.missedTrackingSince=/^\d{4}-\d{2}-\d{2}$/.test(String(obj.missedTrackingSince||''))?obj.missedTrackingSince:null;for(const p of obj.plans||[]){p.draft=!!p.draft;for(const d of p.days||[])for(const ex of d.ex||[]){ex.trackWeight=inferredTrackWeight(ex);if(!ex.trackWeight)ex.kg=''}}for(const log of obj.history||[]){if(!log.readiness&&obj.readiness[log.date])log.readiness=structuredClone(obj.readiness[log.date]);for(const ex of log.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}}if(obj.session)for(const ex of obj.session.exercises||[]){ex.trackWeight=inferredTrackWeight(ex);for(const set of ex.sets||[]){set.kg=String(set.kg??'');set.reps=String(set.reps??'');set.notes=String(set.notes??'')}}if(obj.session&&!obj.session.editId&&(obj.history||[]).some(log=>log.id===obj.session.id||log.id===obj.session.editId))obj.session=null;return obj}
 function ensurePlanTimeline(source){if(!Array.isArray(source.planTimeline))source.planTimeline=[];if(!source.planTimeline.length){const active=source.plans?.find(p=>p.id===source.activePlanId)||source.plans?.[0];if(active)source.planTimeline.push({id:'baseline',effectiveFrom:'0001-01-01',planId:active.id,planName:active.name,snapshot:structuredClone(active),updatedAt:0})}source.planTimeline.sort((a,b)=>String(a.effectiveFrom).localeCompare(String(b.effectiveFrom)));return source.planTimeline}
 const normalizeStateV40=normalizeState;
 normalizeState=function(source){source=normalizeStateV40(source);source.version=41;ensurePlanTimeline(source);source.weights=Array.isArray(source.weights)?source.weights:[];source.weights.forEach((entry,index)=>{if(!entry.id)entry.id=`${entry.date||'unknown'}-${entry.value??0}-${index}`});source.sessionUpdatedAt=Number(source.sessionUpdatedAt||source.session?.updatedAt||source.modifiedAt)||0;return source};
@@ -146,8 +146,58 @@ function persist(){let previous=lastLocalState;try{const stored=JSON.parse(local
 const plan=()=>state.plans.find(p=>p.id===state.activePlanId)||state.plans[0];
 const viewPlan=()=>state.plans.find(p=>p.id===view.selectedPlanId)||plan();
 const day=(pl,weekday)=>pl.days.find(d=>d.weekday===Number(weekday));
-function planSnapshotForDate(date,pl=plan()){if(pl?.id!==state.activePlanId)return pl;const revisions=ensurePlanTimeline(state),eligible=revisions.filter(entry=>String(entry.effectiveFrom)<=String(date)),revision=eligible.at(-1)||revisions[0];return revision?.snapshot||pl}
-const dayForDate=(date,pl=plan())=>day(planSnapshotForDate(date,pl),parseDate(date).getDay());
+function planSnapshotForDate(date,pl=plan()){
+ if(pl?.id!==state.activePlanId)return pl;
+ const revisions=ensurePlanTimeline(state),eligible=revisions.filter(entry=>String(entry.effectiveFrom)<=String(date)),revision=eligible.at(-1)||revisions[0],snapshot=revision?.snapshot||pl;
+ // v6 arrived on 23 October: a stale saved calendar revision must not hide the newly installed plan.
+ // Completed workout logs and pre-release timeline snapshots themselves are never modified.
+ if(String(date)>='2026-10-23'&&pl.programId===window.SWELL_SURF_YEAR.id&&snapshot?.id===pl.id&&Number(snapshot.programVersion||0)<6&&Number(pl.programVersion||0)>=6)return pl;
+ return snapshot;
+}
+function weekendMoveDates(date){
+ if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(String(date)))return null;
+ const d=parseDate(date),weekday=d.getDay();
+ if(weekday!==6&&weekday!==0)return null;
+ if(weekday===0)d.setDate(d.getDate()-1);
+ const saturday=iso(d);d.setDate(d.getDate()+1);
+ return {saturday,sunday:iso(d)};
+}
+function weekendMoveInfo(date,p=plan()){
+ const dates=weekendMoveDates(date);
+ if(!dates||p.id!==state.activePlanId||p.programId!==window.SWELL_SURF_YEAR.id)return null;
+ const sat=day(planSnapshotForDate(dates.saturday,p),6),sun=day(planSnapshotForDate(dates.sunday,p),0);
+ if(!sat?.ex?.length||sun?.ex?.length)return null;
+ return {...dates,moved:state.weekendMoves?.[dates.saturday]?.toSunday===true};
+}
+function weekendMoveLocked(info){
+ return [info.saturday,info.sunday].some(date=>(state.history||[]).some(log=>log.date===date&&log.kind!=='stretching'))||
+ !!(state.session&&state.session.kind!=='stretching'&&[info.saturday,info.sunday].includes(state.session.date));
+}
+function weekendMoveCard(date=today()){
+ const info=weekendMoveInfo(date);if(!info)return '';
+ const ended=info.sunday<today(),locked=weekendMoveLocked(info);
+ const label=info.moved?'Wieder auf Samstag legen':'Auf Sonntag verschieben';
+ const status=info.moved?'Diese Woche trainierst du am Sonntag statt am Samstag.':'Diese Woche ist das Training für Samstag geplant.';
+ return `<div class="card weekend-move-card" style="margin:12px 0"><span class="tiny">FLEXIBLES WOCHENENDE</span><h3 style="margin:5px 0 7px">Samstag oder Sonntag</h3><p class="sub">${status} Nur diese Woche (${esc(fmt(info.saturday,{day:'numeric',month:'short'}))} / ${esc(fmt(info.sunday,{day:'numeric',month:'short'}))}).</p><button class="secondary full" style="margin-top:12px" data-weekend-move="${info.saturday}" ${ended||locked?'disabled':''}>${label}</button>${locked?'<p class="tiny" style="margin-top:8px">Ein Workout wurde bereits begonnen oder gespeichert. Der Termin bleibt unverändert.</p>':''}</div>`;
+}
+function mergeWeekendMoves(remote={},local={}){
+ const output={};
+ for(const key of new Set([...Object.keys(remote||{}),...Object.keys(local||{})])){
+  if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(key))continue;
+  const r=remote?.[key],l=local?.[key];
+  const chosen=Number(l?.updatedAt||0)>=Number(r?.updatedAt||0)?l??r:r??l;
+  if(chosen&&typeof chosen==='object')output[key]=structuredClone(chosen);
+ }
+ return output;
+}
+function dayForDate(date,pl=plan()){
+ const base=day(planSnapshotForDate(date,pl),parseDate(date).getDay());
+ const info=weekendMoveInfo(date,pl);
+ if(!info?.moved)return base;
+ if(date===info.saturday)return {...base,title:'Auf Sonntag verschoben',ex:[]};
+ const saturday=day(planSnapshotForDate(info.saturday,pl),6);
+ return {...structuredClone(saturday),weekday:0,movedFrom:info.saturday};
+}
 const logsForDate=date=>state.history.filter(h=>h.date===date);
 function missedWorkout(date,d=dayForDate(date),logs=logsForDate(date)){const since=state.missedTrackingSince;return !!since&&date<today()&&date>=since&&!!d?.ex?.length&&!logs.some(log=>log.kind!=='stretching')}
 const totalDone=()=>state.session?.exercises.reduce((a,e)=>a+e.sets.filter(x=>x.done).length,0)||0;
@@ -179,10 +229,11 @@ function readinessMini(){const r=state.readiness?.[today()];if(!r&&new Date().ge
 function calendarReadinessMarkup(date,logs=[]){const r=state.readiness?.[date]||logs.find(log=>log.readiness)?.readiness;if(!r)return '';return `<div class="calendar-readiness" aria-label="Tagesform: Schlaf ${r.sleep} von 5, Energie ${r.energy} von 5, Muskelkater ${r.soreness} von 5}${r.sick===true?', krank':''}"><span title="Schlaf">${ico('moon')}<b>${r.sleep}</b><small>/5</small></span><span title="Energie">${ico('bolt')}<b>${r.energy}</b><small>/5</small></span><span title="Muskelkater">${ico('activity')}<b>${r.soreness}</b><small>/5</small></span></div>${r.sick===true?'<div class="calendar-sick-note" role="status">🤒 Krank</div>':''}`}
 function calendarFoodMarkup(date){const entries=Array.isArray(state.food?.[date]?.entries)?state.food[date].entries:[];if(!entries.length)return '';const kcal=entries.reduce((sum,e)=>sum+Number(e.calories||0),0),protein=entries.reduce((sum,e)=>sum+Number(e.protein||0),0);return `${section('Essen',`${entries.length} ${entries.length===1?'Eintrag':'Einträge'}`)}<div class="food-summary calendar-food-summary"><div class="card"><span class="tiny">KALORIEN</span><strong>${kcal||'–'}</strong><small class="muted">kcal</small></div><div class="card"><span class="tiny">PROTEIN</span><strong>${protein||'–'}</strong><small class="muted">g</small></div></div><div class="card calendar-food-list">${entries.map(entry=>`<div class="calendar-food-entry"><div><span class="mini-count">${esc(entry.meal||'Eintrag')}</span><strong>${esc(entry.item||'Lebensmittel')}</strong><small>${esc(entry.amount||'–')} ${esc(entry.unit||'')}${entry.calories?` · ${esc(entry.calories)} kcal`:''}${entry.protein?` · ${esc(entry.protein)} g Protein`:''}</small></div></div>`).join('')}</div>`}
 function shouldPromptReadiness(){return cloud.ready&&new Date().getHours()>=5&&!state.readiness?.[today()]&&!view.readinessOpen&&!view.readinessDismissed}
-function daySummary(date,button=true){const d=dayForDate(date),logs=logsForDate(date);const has=!!d?.ex?.length,missed=missedWorkout(date,d,logs),performed=logs.reduce((sum,log)=>sum+completedExercises(log).length,0);const exLabel=has?`${d.ex.length} Übungen`:'Ruhetag';if(!has&&!logs.length&&button)return `<div data-day-summary style="margin-top:22px"><div class="tiny" style="margin-bottom:10px">${esc(fmt(date,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</div>${optionalStretchCard(date)}</div>${state.tab==='calendar'?calendarReadinessMarkup(date,logs)+calendarFoodMarkup(date):''}`;let html=`<div class="card day-card" data-day-summary><div class="tiny">${esc(fmt(date,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</div><div class="between"><h3 class="daytitle">${esc(logs.length?(logs.every(log=>log.kind==='stretching')?'Stretching gespeichert':'Training gespeichert'):(has?d.title||'Workout':'Ruhetag'))}</h3><span class="mini-count">${logs.length?`${performed} ${logs.every(log=>log.kind==='stretching')?(performed===1?'Dehnung':'Dehnungen'):(performed===1?'Übung':'Übungen')}`:exLabel}</span></div>`;
+function daySummary(date,button=true){const d=dayForDate(date),logs=logsForDate(date);const has=!!d?.ex?.length,missed=missedWorkout(date,d,logs),performed=logs.reduce((sum,log)=>sum+completedExercises(log).length,0);const exLabel=has?`${d.ex.length} Übungen`:'Ruhetag';if(!has&&!logs.length&&button)return `<div data-day-summary style="margin-top:22px"><div class="tiny" style="margin-bottom:10px">${esc(fmt(date,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</div>${weekendMoveCard(date)}${optionalStretchCard(date)}</div>${state.tab==='calendar'?calendarReadinessMarkup(date,logs)+calendarFoodMarkup(date):''}`;let html=`<div class="card day-card" data-day-summary><div class="tiny">${esc(fmt(date,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</div><div class="between"><h3 class="daytitle">${esc(logs.length?(logs.every(log=>log.kind==='stretching')?'Stretching gespeichert':'Training gespeichert'):(has?d.title||'Workout':'Ruhetag'))}</h3><span class="mini-count">${logs.length?`${performed} ${logs.every(log=>log.kind==='stretching')?(performed===1?'Dehnung':'Dehnungen'):(performed===1?'Übung':'Übungen')}`:exLabel}</span></div>`;
  if(state.tab==='calendar')html+=calendarReadinessMarkup(date,logs);
  if(missed)html+=`<div class="missed-training"><strong>Nicht trainiert</strong><span>Geplant laut aktivem Wochenplan</span></div>`;
- if(has&&button)html+=`<div class="day-start-actions"><button class="primary" data-start-day="${d.weekday}" data-on-date="${date}">Training starten ${ico('arrow')}</button><button class="secondary" data-open-day="${d.weekday}">Ansehen</button></div>`;
+ if(has&&button)html+=`<div class="day-start-actions"><button class="primary" data-start-day="${d.weekday}" data-on-date="${date}">Training starten ${ico('arrow')}</button><button class="secondary" data-open-day="${d.movedFrom?6:d.weekday}">Ansehen</button></div>`;
+ if(button)html+=weekendMoveCard(date);
  if(has&&!logs.length)html+=`<div>${d.ex.map(x=>`<div class="day-item"><span>${esc(x.name)}</span><small>${x.sets} × ${esc(x.reps)}</small></div>`).join('')}</div>`;
  else if(!has&&!logs.length)html+=`<p class="sub">Kein Training geplant.</p>`;
  if(!has&&button)html+=optionalStretchCard(date);
@@ -394,7 +445,8 @@ document.addEventListener('click',e=>{if(e.target.matches('[data-modal-backdrop]
  if(d.closeModal!==undefined){view.settingsOpen=false;if(view.readinessOpen)view.readinessDismissed=true;view.readinessOpen=false;view.readinessAutoPrompted=false;view.exEditor=null;view.dayEditor=null;$('#modal').innerHTML='';render();return}
  if(d.settings!==undefined){openSettings();return}
  if(d.readiness!==undefined){openReadiness();return}
- if(d.nav){setTab(d.nav);return}
+ if(d.weekendMove){const info=weekendMoveInfo(d.weekendMove);if(!info)return;if(info.sunday<today()||weekendMoveLocked(info)){toast('Ein bereits begonnenes oder gespeichertes Training kann nicht verschoben werden');return}state.weekendMoves??={};state.weekendMoves[info.saturday]={toSunday:!info.moved,updatedAt:Date.now()};persist();render();toast(info.moved?'Training wieder am Samstag':'Samstagstraining auf Sonntag verschoben');return}
+  if(d.nav){setTab(d.nav);return}
  if(d.week){state.weekOffset+=Number(d.week);state.homeDate=iso(weekDays()[0]);persist();render();return}
  if(d.pickWeek!==undefined){const picker=$('#weekpicker');picker.classList.remove('hidden');try{picker.showPicker()}catch{picker.focus();picker.click()}setTimeout(()=>picker.classList.add('hidden'),3500);return}
  if(d.homeDate){state.homeDate=d.homeDate;persist();render();return}
@@ -480,7 +532,7 @@ function mergeRemote(remote,local){
  if(!primary.session&&secondary.session&&!(primary.history||[]).some(log=>log.id===secondary.session.id||log.id===secondary.session.editId))primary.session=secondary.session;
  if(!primary.plans.find(p=>p.id===primary.activePlanId))primary.activePlanId=primary.plans[0]?.id;
  for(const key of ['tab','homeDate','calendarDate','weekOffset','monthOffset','selectedWeekday','visualMode'])primary[key]=local[key];
- mergeStretchPlans(primary,secondary,remote,local);window.SWELL_SURF_YEAR.ensureState(primary);primary.version=41;
+ mergeStretchPlans(primary,secondary,remote,local);primary.weekendMoves=mergeWeekendMoves(remote.weekendMoves,local.weekendMoves);window.SWELL_SURF_YEAR.ensureState(primary);primary.version=41;
  return primary;
 }
 function refreshCloudView(){render();if(!view.settingsOpen)return;const account=$('#settings-account');if(!account)return;if(account.dataset.cloudAccount!==(cloud.uid||'')){openSettings();return}const status=$('#cloud-status');if(status&&status.textContent!==cloud.status)status.textContent=cloud.status;const dot=$('#cloud-status-dot');dot?.classList.toggle('on',cloud.synced&&cloud.status==='Mit Konto verbunden');const host=$('#cloud-retry-host');if(host){const markup=cloudNeedsRetry()?`<button class="secondary full" data-cloud-retry ${cloud.reconnecting?'disabled':''}>${cloud.reconnecting?'Verbindung wird geprüft …':'Erneut synchronisieren'}</button>`:'';if(host.innerHTML!==markup)host.innerHTML=markup}}
@@ -695,7 +747,7 @@ async function registerWorker(){
  let refreshing=false;
  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(refreshing)return;refreshing=true;showUpdateSkeleton();setTimeout(()=>location.reload(),220)});
  try{
-  const registration=await navigator.serviceWorker.register('/sw.js?v=53.0',{updateViaCache:'none'});
+  const registration=await navigator.serviceWorker.register('/sw.js?v=55.0',{updateViaCache:'none'});
   await registration.update();
   const worker=registration.installing||registration.waiting;
   if(worker){
